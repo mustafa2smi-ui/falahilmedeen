@@ -1,0 +1,503 @@
+<!--
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Tasbeeh Counter - Islamic Virasat Tools</title>
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🕌</text></svg>">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Amiri&display=swap" rel="stylesheet">
+    
+    <style>
+        :root { --primary: #27ae60; --dark: #2c3e50; --bg: #f9fbf9; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: var(--bg); color: var(--dark); text-align: center; overflow: hidden; }
+
+        /* Universal Header */
+        header { background: #fff; padding: 15px; display: flex; justify-content: space-between; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000; }
+        .logo { font-weight: 600; color: var(--primary); }
+
+        /* Counter Container */
+        .counter-section { 
+            height: 80vh; display: flex; flex-direction: column; 
+            align-items: center; justify-content: center; padding: 20px; 
+        }
+
+        /* Number Display with Glow */
+        #countDisplay { 
+            font-size: 5rem; font-weight: 600; color: var(--primary); 
+            text-shadow: 0 0 20px rgba(39, 174, 96, 0.4); 
+            margin-bottom: 30px; 
+        }
+
+        /* Target Selector Dropdown */
+        .target-select {
+            padding: 8px 15px; border-radius: 20px; border: 1px solid #eee;
+            background: #fff; color: #777; font-size: 0.8rem; outline: none;
+            cursor: pointer; margin-bottom: 20px;
+        }
+
+        /* Main Circular Click Button */
+        .click-btn { 
+            width: 150px; height: 150px; border-radius: 50%; 
+            background: linear-gradient(145deg, #2ecc71, #27ae60); 
+            color: white; border: 10px solid #fff; font-size: 2.5rem; 
+            cursor: pointer; transition: 0.2s;
+            box-shadow: 20px 20px 60px #e1e8e1, -20px -20px 60px #ffffff;
+            outline: none; -webkit-tap-highlight-color: transparent; /* Mobile fix */
+        }
+        .click-btn:active { 
+            transform: scale(0.95); 
+            box-shadow: inset 10px 10px 30px rgba(0,0,0,0.1), inset -10px -10px 30px rgba(255,255,255,0.5); 
+        }
+
+        /* Control Buttons (Reset/Vibrate) */
+        .controls { display: flex; gap: 15px; margin-top: 30px; }
+        .icon-btn { 
+            width: 50px; height: 50px; border-radius: 50%; 
+            border: none; color: white; cursor: pointer; font-size: 1.2rem; 
+            display: flex; align-items: center; justify-content: center;
+        }
+        .reset-bg { background: #e74c3c; } /* Red */
+        .vibe-bg { background: #34495e; } /* Dark Blue */
+
+        /* Bismillah with glow */
+        .bismillah { font-family: 'Amiri', serif; font-size: 1.8rem; color: var(--primary); margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="index.html" style="text-decoration:none;" class="logo">Islamic Virasat</a>
+    <div style="font-size:1.3rem;">☰</div>
+</header>
+
+<div class="counter-section">
+    <div class="bismillah">﷽</div>
+    
+    <select class="target-select" id="targetSelect" onchange="setTarget()">
+        <option value="33">Target: 33</option>
+        <option value="100">Target: 100</option>
+        <option value="1000">Target: Unlimited</option>
+    </select>
+
+    <div id="countDisplay">000</div>
+    
+    <button class="click-btn" onclick="incrementCount()" title="Click to Count">📿</button>
+    
+    <div class="controls">
+        <button class="icon-btn vibe-bg" id="vibeBtn" onclick="toggleVibration()" title="Toggle Vibration">📳</button>
+        <button class="icon-btn reset-bg" onclick="resetCount()" title="Reset Counter">🔄</button>
+    </div>
+</div>
+
+<script>
+    let count = 0;
+    let target = 33;
+    let vibrateOn = true;
+
+    function incrementCount() {
+        count++;
+        updateDisplay();
+        
+        if (vibrateOn && navigator.vibrate) {
+            navigator.vibrate(50); // Short vibration
+        }
+
+        if (count >= target) {
+            handleTargetMet();
+        }
+    }
+
+    function updateDisplay() {
+        // Numbers ko 001 format mein laane ke liye padding
+        const display = count.toString().padStart(3, '0');
+        document.getElementById('countDisplay').innerText = display;
+    }
+
+    function setTarget() {
+        target = parseInt(document.getElementById('targetSelect').value);
+        resetCount(); // Reset when target changes
+    }
+
+    function resetCount() {
+        count = 0;
+        updateDisplay();
+    }
+
+    function toggleVibration() {
+        vibrateOn = !vibrateOn;
+        const btn = document.getElementById('vibeBtn');
+        btn.innerHTML = vibrateOn ? '📳' : '🔇';
+        btn.style.opacity = vibrateOn ? '1' : '0.5';
+    }
+
+    function handleTargetMet() {
+        if (vibrateOn && navigator.vibrate) {
+            navigator.vibrate([200, 100, 200]); // Long pattern
+        }
+        alert(`Alhamdulillah! Aapne ${target} counts poore kar liye.`);
+        resetCount();
+    }
+</script>
+
+</body>
+</html>
+-->
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swipe Tasbeeh - Islamic Virasat</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Amiri&display=swap" rel="stylesheet">
+    
+    <style>
+        :root { --primary: #27ae60; --dark: #2c3e50; --gold: #f1c40f; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: #f0f2f0; color: var(--dark); overflow: hidden; touch-action: none; }
+
+        header { background: #fff; padding: 15px; display: flex; justify-content: space-between; border-bottom: 1px solid #eee; }
+        
+        /* Dua Card Style */
+        .dua-card-container {
+            margin: 20px auto; width: 90%; max-width: 400px; height: 120px;
+            perspective: 1000px;
+        }
+        .dua-card {
+            background: white; padding: 15px; border-radius: 15px; text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05); border-left: 5px solid var(--primary);
+            transition: 0.5s transform;
+        }
+        .dua-card h2 { font-family: 'Amiri', serif; font-size: 1.8rem; color: var(--primary); margin-bottom: 5px; }
+        .dua-card p { font-size: 0.85rem; font-weight: 600; color: #555; }
+
+        /* Swipe Area (Reel Style) */
+        .swipe-area {
+            height: 50vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            position: relative; cursor: pointer;
+        }
+        
+        #countDisplay { font-size: 6rem; font-weight: 700; color: var(--primary); opacity: 0.2; position: absolute; z-index: 1; }
+
+        /* Animated Beads (Tasbeeh Dana) */
+        .bead {
+            width: 80px; height: 80px; background: radial-gradient(circle at 30% 30%, #2ecc71, #27ae60);
+            border-radius: 50%; box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            position: absolute; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 2; border: 4px solid #fff;
+        }
+
+        .controls { display: flex; justify-content: center; gap: 20px; padding: 20px; }
+        .icon-btn { width: 50px; height: 50px; border-radius: 50%; border: none; color: white; background: var(--dark); cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div style="font-weight:600; color:var(--primary);">Islamic Virasat</div>
+    <div style="font-size:1.2rem;">📿</div>
+</header>
+
+<div class="dua-card-container">
+    <div class="dua-card" id="azkarCard">
+        <h2 id="arabicDua">سُبْحَانَ ٱللَّٰهِ</h2>
+        <p id="hindiDua">SubhanAllah (Allah Pak Hai)</p>
+    </div>
+</div>
+
+<div class="swipe-area" id="swipeZone">
+    <div id="countDisplay">00</div>
+    <div class="bead" id="mainBead"></div>
+    <p style="margin-top: 180px; color: #999; font-size: 0.8rem;">Slide Up to Count ↑</p>
+</div>
+
+<div class="controls">
+    <button class="icon-btn" onclick="resetAll()" style="background:#e74c3c;">🔄</button>
+    <div id="totalBadge" style="background:white; padding:10px 20px; border-radius:20px; font-weight:600; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">Total: <span id="totalCount">0</span></div>
+</div>
+
+<script>
+    let count = 0;
+    let totalCount = 0;
+    let azkarIndex = 0;
+    
+    const azkarList = [
+        { ar: "سُبْحَانَ ٱللَّٰهِ", hi: "SubhanAllah (Allah Pak Hai)" },
+        { ar: "ٱلْحَمْدُ لِلَّٰهِ", hi: "Alhamdulillah (Sab Tarif Allah Ke Liye)" },
+        { ar: "ٱللَّٰهُ أَكْبَرُ", hi: "Allahu Akbar (Allah Sabse Bada Hai)" }
+    ];
+
+    let startY = 0;
+    const swipeZone = document.getElementById('swipeZone');
+    const bead = document.getElementById('mainBead');
+
+    swipeZone.addEventListener('touchstart', e => {
+        startY = e.touches[0].clientY;
+    }, {passive: true});
+
+    swipeZone.addEventListener('touchend', e => {
+        let endY = e.changedTouches[0].clientY;
+        if (startY - endY > 50) { // Swipe Up detected
+            handleCount();
+        }
+    }, {passive: true});
+
+    function handleCount() {
+        count++;
+        totalCount++;
+        
+        // Vibration
+        if (navigator.vibrate) navigator.vibrate(40);
+
+        // Bead Animation (Jump effect)
+        bead.style.transform = "translateY(-150px) scale(0.8)";
+        bead.style.opacity = "0";
+
+        setTimeout(() => {
+            bead.style.transition = "none";
+            bead.style.transform = "translateY(150px)";
+            updateUI();
+            setTimeout(() => {
+                bead.style.transition = "0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)";
+                bead.style.transform = "translateY(0) scale(1)";
+                bead.style.opacity = "1";
+            }, 50);
+        }, 200);
+
+        // 33 Count Logic
+        if (count >= 33) {
+            count = 0;
+            azkarIndex = (azkarIndex + 1) % azkarList.length;
+            if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+            animateCard();
+        }
+    }
+
+    function updateUI() {
+        document.getElementById('countDisplay').innerText = count.toString().padStart(2, '0');
+        document.getElementById('totalCount').innerText = totalCount;
+    }
+
+    function animateCard() {
+        const card = document.getElementById('azkarCard');
+        card.style.transform = "translateX(-100%)";
+        card.style.opacity = "0";
+        
+        setTimeout(() => {
+            document.getElementById('arabicDua').innerText = azkarList[azkarIndex].ar;
+            document.getElementById('hindiDua').innerText = azkarList[azkarIndex].hi;
+            card.style.transition = "none";
+            card.style.transform = "translateX(100%)";
+            setTimeout(() => {
+                card.style.transition = "0.5s transform, 0.5s opacity";
+                card.style.transform = "translateX(0)";
+                card.style.opacity = "1";
+            }, 50);
+        }, 500);
+    }
+
+    function resetAll() {
+        count = 0; totalCount = 0; azkarIndex = 0;
+        document.getElementById('arabicDua').innerText = azkarList[0].ar;
+        document.getElementById('hindiDua').innerText = azkarList[0].hi;
+        updateUI();
+    }
+</script>
+</body>
+</html>
+
+<!--
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro Swipe Tasbeeh - Islamic Virasat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Amiri&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #27ae60; --dark: #2c3e50; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: #f4f7f4; color: var(--dark); overflow: hidden; touch-action: none; }
+
+        header { background: #fff; padding: 15px; display: flex; justify-content: space-between; align-items:center; border-bottom: 1px solid #eee; }
+        
+        /* 1 & 2: Dua Card & Custom Input Area */
+        .dua-section { margin: 15px auto; width: 92%; max-width: 450px; }
+        .dua-card {
+            background: white; padding: 20px; border-radius: 20px; text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.06); border-top: 5px solid var(--primary);
+            min-height: 140px; display: flex; flex-direction: column; justify-content: center;
+        }
+        .dua-card h2 { font-family: 'Amiri', serif; font-size: 2rem; color: var(--primary); margin-bottom: 8px; }
+        .dua-card p { font-size: 0.9rem; font-weight: 600; color: #666; }
+
+        .custom-input-box {
+            display: flex; gap: 5px; margin-top: 10px;
+        }
+        .custom-input-box input {
+            flex: 1; padding: 8px 12px; border-radius: 10px; border: 1px solid #ddd; font-size: 0.8rem;
+        }
+        .add-btn { background: var(--primary); color: white; border: none; padding: 0 15px; border-radius: 10px; cursor: pointer; }
+
+        /* Swipe Zone */
+        .swipe-area { height: 45vh; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
+        #countDisplay { font-size: 7rem; font-weight: 800; color: var(--primary); opacity: 0.15; position: absolute; }
+        .bead {
+            width: 90px; height: 90px; background: radial-gradient(circle at 30% 30%, #2ecc71, #27ae60);
+            border-radius: 50%; box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+            position: absolute; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 2; border: 5px solid #fff;
+        }
+
+        /* 4: Combo Box & Controls */
+        .controls-row { display: flex; justify-content: center; align-items: center; gap: 15px; padding: 10px; }
+        .target-select { padding: 8px; border-radius: 15px; border: 1px solid #ddd; font-size: 0.8rem; }
+        .icon-btn { width: 45px; height: 45px; border-radius: 50%; border: none; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+        
+        .share-btn { 
+            background: #27ae60; color: white; border: none; padding: 12px 25px; 
+            border-radius: 30px; font-weight: 600; margin: 10px auto; display: block; width: 80%;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div style="font-weight:600; color:var(--primary);">Islamic Virasat</div>
+    <button id="vibeBtn" onclick="toggleVibe()" style="background:none; border:none; font-size:1.5rem; cursor:pointer;">📳</button>
+</header>
+
+<div class="dua-section">
+    <div class="dua-card" id="azkarCard">
+        <h2 id="arabicDua">سُبْحَانَ ٱللَّٰهِ</h2>
+        <p id="hindiDua">SubhanAllah (Allah Pak Hai)</p>
+    </div>
+    <div class="custom-input-box">
+        <input type="text" id="customInput" placeholder="Apni Dua yahan paste karein...">
+        <button class="add-btn" onclick="setCustomDua()">Set</button>
+    </div>
+</div>
+
+<div class="swipe-area" id="swipeZone">
+    <div id="countDisplay">00</div>
+    <div class="bead" id="mainBead"></div>
+</div>
+
+<div class="controls-row">
+    <select class="target-select" id="targetSelect" onchange="setTarget()">
+        <option value="33">Target: 33</option>
+        <option value="100">Target: 100</option>
+        <option value="1000">Unlimited</option>
+    </select>
+    <div style="font-weight:600;">Total: <span id="totalCount">0</span></div>
+    <button class="icon-btn" onclick="resetAll()" style="background:#e74c3c;">🔄</button>
+</div>
+
+<button class="share-btn" onclick="shareTasbeeh()">📢 Share Tasbeeh Progress</button>
+
+<script>
+    let count = 0;
+    let totalCount = 0;
+    let azkarIndex = 0;
+    let target = 33;
+    let vibrateOn = true;
+    
+    // 1: Yahan aap apni default Duayein add kar sakte hain
+    const azkarList = [
+        { ar: "سُبْحَانَ ٱللَّٰهِ", hi: "SubhanAllah" },
+        { ar: "ٱلْحَمْدُ لِلَّٰهِ", hi: "Alhamdulillah" },
+        { ar: "ٱللَّٰهُ أَكْبَرُ", hi: "Allahu Akbar" }
+    ];
+
+    const swipeZone = document.getElementById('swipeZone');
+    const bead = document.getElementById('mainBead');
+    let startY = 0;
+
+    swipeZone.addEventListener('touchstart', e => startY = e.touches[0].clientY);
+    swipeZone.addEventListener('touchend', e => {
+        if (startY - e.changedTouches[0].clientY > 50) handleCount();
+    });
+
+    function handleCount() {
+        count++; totalCount++;
+        if (vibrateOn && navigator.vibrate) navigator.vibrate(40);
+        
+        // Animation Logic
+        bead.style.transform = "translateY(-150px) opacity(0)";
+        setTimeout(() => {
+            bead.style.transition = "none";
+            bead.style.transform = "translateY(150px)";
+            updateUI();
+            setTimeout(() => {
+                bead.style.transition = "0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)";
+                bead.style.transform = "translateY(0)";
+            }, 50);
+        }, 200);
+
+        if (count >= target) {
+            count = 0;
+            if (target == 33) {
+                azkarIndex = (azkarIndex + 1) % azkarList.length;
+                animateCard();
+            }
+            if (vibrateOn) navigator.vibrate([100, 50, 100]);
+        }
+    }
+
+    // 2: Custom Dua Set karne ka function
+    function setCustomDua() {
+        const val = document.getElementById('customInput').value;
+        if(val) {
+            document.getElementById('arabicDua').innerText = val;
+            document.getElementById('hindiDua').innerText = "Custom Zikar";
+            count = 0; updateUI();
+        }
+    }
+
+    function toggleVibe() {
+        vibrateOn = !vibrateOn;
+        document.getElementById('vibeBtn').innerText = vibrateOn ? '📳' : '🔇';
+    }
+
+    function setTarget() {
+        target = parseInt(document.getElementById('targetSelect').value);
+        count = 0; updateUI();
+    }
+
+    // 3: Custom Share Message
+    function shareTasbeeh() {
+        const msg = `Assalamu Alaikum! Kya aapne aaj ka Tasbeeh poora kiya? Maine abhi ${totalCount} martaba zikar kiya hai. Zikar ke liye best Tasbeeh Counter abhi visit karein: ${window.location.href}`;
+        if (navigator.share) {
+            navigator.share({ title: 'Tasbeeh Counter', text: msg, url: window.location.href });
+        } else {
+            window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`);
+        }
+    }
+
+    function animateCard() {
+        const card = document.getElementById('azkarCard');
+        card.style.transform = "scale(0.8) opacity(0)";
+        setTimeout(() => {
+            document.getElementById('arabicDua').innerText = azkarList[azkarIndex].ar;
+            document.getElementById('hindiDua').innerText = azkarList[azkarIndex].hi;
+            card.style.transform = "scale(1) opacity(1)";
+        }, 300);
+    }
+
+    function updateUI() {
+        document.getElementById('countDisplay').innerText = count.toString().padStart(2, '0');
+        document.getElementById('totalCount').innerText = totalCount;
+    }
+
+    function resetAll() {
+        count = 0; totalCount = 0; updateUI();
+    }
+</script>
+</body>
+</html>
+-->
