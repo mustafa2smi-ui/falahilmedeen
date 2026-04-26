@@ -1,0 +1,17 @@
+<form id="duaForm">
+  <input type="text" name="title" placeholder="Title" required><br>
+  <textarea name="arabic" placeholder="Arabic Text"></textarea><br>
+  <textarea name="hindi" placeholder="Hindi Text"></textarea><br>
+  <input type="text" name="audio" placeholder="Audio Link (Google Drive)"><br>
+  <input type="text" name="cat" placeholder="Category"><br>
+  <button type="button" onclick="saveDua()">Save Dua</button>
+</form>
+
+<script>
+function saveDua() {
+  var form = document.getElementById("duaForm");
+  var data = new FormData(form);
+  fetch("YOUR_WEB_APP_URL_HERE", { method: "POST", body: data })
+  .then(() => alert("Dua Saved Successfully!"));
+}
+</script>
