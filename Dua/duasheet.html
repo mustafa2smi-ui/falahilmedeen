@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
+    
+    <meta name="description" content="Masnoon Duas Collection">
+    <meta property="og:title" content="Dua Timeline">
+    <meta property="og:description" content="Learn and share beautiful duas.">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dua & Timeline History</title>
@@ -56,6 +61,14 @@
     </style>
 </head>
 <body>
+// UI Elements mein ye logic dalein
+<div id="ui-elements">
+    ${data.audioAr ? `<button class="audio-btn" style="background:#2ecc71;" onclick="playAudio('${data.audioAr}')">🔊 Arabic Recitation</button>` : ""}
+    ${data.audioTr ? `<button class="audio-btn" style="background:#3498db;" onclick="playAudio('${data.audioTr}')">🔊 Tarjuma (Translation)</button>` : ""}
+    
+    <button class="btn-card-share" onclick="shareAsImage()">📸 Share Image</button>
+    <button class="btn-card-share" style="background:#27ae60;" onclick="shareAsText()">✍️ Share Text</button>
+</div>
 
 <div id="cardLightbox" class="card-overlay">
     <span class="close-overlay" onclick="closeLightbox()">&times;</span>
@@ -86,13 +99,24 @@
     <p style="font-size:0.7rem; color:#27ae60; font-weight:600;">Dua Timeline Prophet</p>
     <p style="font-size:0.5rem; color:#999;">Shared via Dua App</p>
 </div>
+<div id="mainTimeline">
+    <div class="event-row"><h3>Dua 1 (Default)</h3></div>
+    <div class="event-row"><h3>Dua 2 (Default)</h3></div>
+</div>
+    <form id="duaForm">
+  <input type="text" name="title" placeholder="Dua Title" required>
+  <input type="text" name="cat" placeholder="Category (e.g. Morning, Night)">
+  <input type="file" id="audioFile" accept="audio/*">
+  <button type="button" onclick="uploadData()">Save Dua</button>
+</form>
+
 
 <script>
            // Google Sheet Apps Script URL yahan dalein
 const API_URL = "https://script.google.com/macros/s/AKfycbzI0oK1KNxMdOvyMmg0yJyUIdJdC1facKuTQCIHf5Hm3WF-eu54IdAeJgoWenF9JNeiXg/exec"; 
 let allEventsData = [];
 let currentSlideIndex = 0;
-
+/*
 async function loadEvents() {
     const container = document.getElementById('mainTimeline');
     container.innerHTML = "Loading Duas..."; // Loading state
@@ -121,7 +145,37 @@ async function loadEvents() {
         console.error(e);
     }
 }
+*/
+    function uploadData() {
+  const file = document.getElementById("audioFile").files[0];
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const data = e.target.result.split(",")[1];
+    fetch("YOUR_WEB_APP_URL", {
+      method: "POST",
+      body: new URLSearchParams({
+        data: data, mimetype: file.type, filename: file.name,
+        title: document.querySelector('[name="title"]').value,
+        cat: document.querySelector('[name="cat"]').value
+        // Baaki fields bhi add karein
+      })
+    }).then(() => alert("Upload Success!"));
+  };
+  reader.readAsDataURL(file);
+}
 
+async function loadEvents() {
+    const container = document.getElementById('mainTimeline');
+    try {
+        const response = await fetch(API_URL);
+        const data = await response.json();
+        
+        // Data aate hi manual duayein hata dein
+        container.innerHTML = ""; 
+        // Ab API wala data render karein...
+    } catch(e) { /* Error handling */ }
+}
+/*
 // Lightbox Update mein Audio Logic
 function updateLightboxContent() {
     const data = allEventsData[currentSlideIndex];
@@ -150,12 +204,75 @@ function updateLightboxContent() {
     setupColorPicker();
     container.scrollTop = 0; 
 }
+*/
+    function updateLightboxContent() {
+    const data = allEventsData[currentSlideIndex];
+    const container = document.getElementById('activeCardContent');
+    
+    // Sirf tabhi button banayenge agar link exists karta hai
+    let audioHtml = "";
+    if (data.audioAr && data.audioAr.trim() !== "") {
+        audioHtml += `<button class="audio-btn" style="background:#2ecc71;" onclick="playAudio('${data.audioAr}')">🔊 Arabic Recitation</button>`;
+    }
+    if (data.audioTr && data.audioTr.trim() !== "") {
+        audioHtml += `<button class="audio-btn" style="background:#3498db;" onclick="playAudio('${data.audioTr}')">🔊 Tarjuma (Translation)</button>`;
+    }
+
+    container.innerHTML = `
+        <div id="captureArea">
+            <span style="color:var(--line); font-size:0.8rem; font-weight:600;">Dua #${currentSlideIndex + 1}</span>
+            <h2 style="margin:5px 0; font-size:1.3rem;">${data.title}</h2>
+            <div class="arabic-text">${data.arabic}</div>
+            <p style="margin-bottom:8px; font-size:0.9rem;"><b>Hindi:</b> ${data.hindi}</p>
+            <p style="font-size:0.9rem;"><b>Urdu:</b> ${data.urdu}</p>
+        </div>
+        
+        <div id="ui-elements">
+            ${audioHtml} 
+            <button class="btn-card-share" onclick="shareAsImage()">📸 Share Image</button>
+            <button class="btn-card-share" style="background:#27ae60;" onclick="shareAsText()">✍️ Share Text</button>
+        </div>
+    `;
+    setupColorPicker();
+    container.scrollTop = 0; 
+}
 
 // Naya Audio Play Function (Google Drive direct link ke liye)
 function playAudio(url) {
     const audio = new Audio(url);
     audio.play();
 }
+function updateMetaTags(dua) {
+    document.title = dua.title + " - Islamic Virasat";
+    // Description update
+    document.querySelector('meta[name="description"]').setAttribute("content", dua.arabic + " - " + dua.hindi);
+    // OG Tags (WhatsApp share ke liye)
+    document.querySelector('meta[property="og:title"]').setAttribute("content", dua.title);
+}
+function openLightbox(index) {
+    currentSlideIndex = index;
+    const data = allEventsData[index];
+    
+    // Meta tags update karein
+    updateMetaTags(data);
+    
+    // Browser ka URL update karein (Taaki link copy karne par specific dua aaye)
+    const newUrl = `${window.location.pathname}?id=${index}`;
+    window.history.pushState({path: newUrl}, '', newUrl);
+    
+    document.getElementById('cardLightbox').style.display = 'flex';
+    updateLightboxContent();
+}
+window.onload = async () => {
+    await loadEvents(); // Pehle data fetch karein
+    
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    
+    if (id !== null && allEventsData[id]) {
+        openLightbox(parseInt(id));
+    }
+};
 
 </script>
 </body>
