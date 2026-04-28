@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dua & Timeline History</title>
+    <meta name="description" content="Masnoon Duas Collection">
+    <meta property="og:title" content="Dua Timeline">
+    <meta property="og:description" content="Learn and share beautiful duas.">
+    </head>
+<body>
+
+<header>
+    <div class="logo">Dua Timeline App</div>
+    <div onclick="alert('Menu Coming Soon')" style="font-size: 1.5rem; cursor: pointer;">☰</div>
+</header>
+
+<div class="timeline" id="mainTimeline">
+    <div class="event-row show">
+        <div class="date-col">01</div>
+        <div class="content-col"><h3>Duayein load ho rahi hain...</h3></div>
+    </div>
+</div>
+
+<div id="cardLightbox" class="card-overlay">
+    <span class="close-overlay" onclick="closeLightbox()">&times;</span>
+    <div class="slider-container">
+        <button class="nav-btn prev" onclick="changeSlide(-1)">&#10094;</button>
+        <div id="activeCardContent" class="active-card"></div>
+        <button class="nav-btn next" onclick="changeSlide(1)">&#10095;</button>
+    </div>
+</div>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbzI0oK1KNxMdOvyMmg0yJyUIdJdC1facKuTQCIHf5Hm3WF-eu54IdAeJgoWenF9JNeiXg/exec"; 
+let allEventsData = [];
+let currentSlideIndex = 0;
+
+async function loadEvents() {
+    const container = document.getElementById('mainTimeline');
+    try {
+        const response = await fetch(API_URL);
+        allEventsData = await response.json();
+        container.innerHTML = ""; 
+
+        allEventsData.forEach((data, i) => {
+            const row = document.createElement('div');
+            row.className = 'event-row show';
+            row.onclick = () => openLightbox(i);
+            row.innerHTML = `<div class="date-col">${i + 1}</div><div class="content-col"><h3>${data.title}</h3></div>`;
+            container.appendChild(row);
+        });
+    } catch (e) {
+        container.innerHTML = "Data load karne mein error aaya.";
+    }
+}
+
+function updateLightboxContent() {
+    const data = allEventsData[currentSlideIndex];
+    const container = document.getElementById('activeCardContent');
+    
+    // Audio check (Arabic & Tarjuma)
+    let audioHtml = "";
+    if (data.audioAr && data.audioAr.length > 5) audioHtml += `<button class="audio-btn" onclick="playAudio('${data.audioAr}')">🔊 Arabic</button>`;
+    if (data.audioTr && data.audioTr.length > 5) audioHtml += `<button class="audio-btn" onclick="playAudio('${data.audioTr}')">🔊 Tarjuma</button>`;
+
+    container.innerHTML = `
+        <div id="captureArea">
+            <h2 style="margin:5px 0;">${data.title}</h2>
+            <div class="arabic-text">${data.arabic}</div>
+            <p><b>Hindi:</b> ${data.hindi}</p>
+            <p><b>Urdu:</b> ${data.urdu}</p>
+        </div>
+        <div id="ui-elements">
+            ${audioHtml}
+            <button class="btn-card-share" onclick="shareAsText()">✍️ Share</button>
+        </div>
+    `;
+}
+
+function openLightbox(index) {
+    currentSlideIndex = index;
+    const data = allEventsData[index];
+    document.title = data.title;
+    document.getElementById('activeCardContent').innerHTML = ""; // Clear
+    document.getElementById('cardLightbox').style.display = 'flex';
+    updateLightboxContent();
+    // URL Update
+    const newUrl = `${window.location.pathname}?id=${index}`;
+    window.history.pushState({path: newUrl}, '', newUrl);
+}
+
+function closeLightbox() { document.getElementById('cardLightbox').style.display = 'none'; }
+function playAudio(url) { new Audio(url).play(); }
+
+window.onload = async () => {
+    await loadEvents();
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    if (id !== null && allEventsData[id]) openLightbox(parseInt(id));
+};
+</script>
+</body>
+</html>
