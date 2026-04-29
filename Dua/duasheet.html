@@ -164,26 +164,48 @@ function shareAsText() {
 }
     async function shareAsImage() {
     const btn = event.target;
-    const data = allEventsData[currentSlideIndex];
-    const hiddenDiv = document.getElementById('hiddenCapture');
+    const captureArea = document.getElementById('activeCardContent');
     
+    // 1. Feedback
+    const originalText = btn.innerText;
     btn.innerText = "Generating...";
-    
-    // Hidden div mein wahi content daalo jo card mein hai
-    hiddenDiv.innerHTML = `
-        <h2 style="text-align:center;">${data.title}</h2>
-        <div style="font-family: 'Amiri'; text-align:right; font-size: 2rem;">${data.arabic}</div>
-        <p style="text-align:center;">${data.hindi || ""}</p>
-        <div id="watermarkBox" style="text-align:center; margin-top:20px;">Dua Timeline App</div>
-    `;
+    btn.disabled = true;
 
-    const canvas = await html2canvas(hiddenDiv, { scale: 2 });
-    canvas.toBlob(blob => {
-        const file = new File([blob], 'dua.png', { type: 'image/png' });
-        if (navigator.share) navigator.share({ files: [file] });
-        btn.innerText = "📸 Share Image";
-    });
+    try {
+        // 2. Timeout de rahe hain taaki UI update ho sake
+        await new Promise(r => setTimeout(r, 500)); 
+
+        const canvas = await html2canvas(captureArea, {
+            scale: 2,
+            useCORS: true,
+            logging: false, // Console clutter hatane ke liye
+            width: captureArea.offsetWidth,
+            height: captureArea.offsetHeight
+        });
+
+        canvas.toBlob(async (blob) => {
+            const file = new File([blob], 'dua.png', { type: 'image/png' });
+            
+            if (navigator.share && navigator.canShare({ files: [file] })) {
+                await navigator.share({ files: [file], title: 'Dua' });
+            } else {
+                // Agar share nahi ho raha, toh file download kar lo
+                const link = document.createElement('a');
+                link.href = canvas.toDataURL("image/png");
+                link.download = 'dua.png';
+                link.click();
+            }
+            btn.innerText = originalText;
+            btn.disabled = false;
+        });
+    } catch (err) {
+        console.error(err);
+        btn.innerText = originalText;
+        btn.disabled = false;
+        alert("Image generate nahi ho payi, phir try karein.");
+    }
 }
+
 
 
 
