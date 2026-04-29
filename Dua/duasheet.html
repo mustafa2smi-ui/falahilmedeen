@@ -139,47 +139,22 @@ function shareAsText() {
     }
 }
     async function shareAsImage() {
-    const btn = event.target;
-    const ui = document.getElementById('ui-elements');
-    const captureArea = document.getElementById('activeCardContent');
-    const watermark = document.getElementById('watermarkBox');
+        const ui = document.getElementById('ui-elements');
+        const watermark = document.getElementById('watermarkBox');
+        const captureArea = document.getElementById('activeCardContent');
+        ui.style.display = 'none';
+        const wmClone = watermark.cloneNode(true);
+        wmClone.style.display = 'block';
+        captureArea.appendChild(wmClone);
 
-    // 1. Button ko "Generating" state mein daalein
-    btn.innerText = "Generating...";
-    btn.disabled = true;
-
-    // 2. UI elements ko hide karein
-    ui.style.visibility = 'hidden'; 
-    watermark.style.display = 'block';
-
-    // 3. Browser ko thoda time dein takki UI update ho jaye (Reflow)
-    await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
-
-    try {
-        const canvas = await html2canvas(captureArea, { 
-            scale: 2,
-            backgroundColor: '#ffffff',
-            useCORS: true 
-        });
-
+        const canvas = await html2canvas(captureArea, { scale: 2 });
         canvas.toBlob(blob => {
             const file = new File([blob], 'dua.png', { type: 'image/png' });
-            if (navigator.share) {
-                navigator.share({ files: [file], title: 'Dua' });
-            } else {
-                alert("Share feature supported nahi hai.");
-            }
+            if (navigator.share) navigator.share({ files: [file], title: 'Dua' });
         });
-    } catch (err) {
-        console.error("Image generation error:", err);
-    } finally {
-        // 4. Sab wapas normal karein (chahe error aaye ya success)
-        ui.style.visibility = 'visible';
-        watermark.style.display = 'none';
-        btn.innerText = "📸 Share Image";
-        btn.disabled = false;
+        ui.style.display = 'block';
+        captureArea.removeChild(wmClone);
     }
-}
 
 
 /*
