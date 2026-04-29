@@ -166,8 +166,7 @@ function shareAsText() {
 }
     async function shareAsImage() {
     const btn = event.target;
-    const captureArea = document.getElementById('activeCardContent');
-    
+    const captureArea = document.getElementById('captureArea'); 
     // 1. Feedback
     const originalText = btn.innerText;
     btn.innerText = "Generating...";
@@ -207,10 +206,29 @@ function shareAsText() {
         alert("Image generate nahi ho payi, phir try karein.");
     }
 }
+/*
+async function shareAsImage() {
+    const btn = event.target;
+    // Humne sirf us div ko capture kiya hai jismein Dua hai (buttons ke bina)
+    const captureArea = document.getElementById('captureArea'); 
+    
+    btn.innerText = "Generating...";
+    btn.disabled = true;
+
+    try {
+        const canvas = await html2canvas(captureArea, { scale: 2, backgroundColor: '#ffffff' });
+        // ... baki share logic wahi rahega ...
+        btn.innerText = "📸 Share Image";
+        btn.disabled = false;
+    } catch (err) {
+        alert("Error: " + err.message);
+        btn.innerText = "📸 Share Image";
+        btn.disabled = false;
+    }
+}
 
 
-
-
+*/
 /*
 // 3. loadEvents mein ye line update karein
 // Loop ke andar row.className mein data-category add karein:
