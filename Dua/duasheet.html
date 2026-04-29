@@ -140,25 +140,47 @@ function shareAsText() {
 }
     async function shareAsImage() {
     const btn = event.target;
-    btn.innerText = "Generating..."; // User feedback
-    
     const ui = document.getElementById('ui-elements');
     const captureArea = document.getElementById('activeCardContent');
     const watermark = document.getElementById('watermarkBox');
-    
-    ui.style.display = 'none'; // Buttons hide
-    watermark.style.display = 'block'; // Watermark show
-    
-    const canvas = await html2canvas(captureArea, { scale: 2 });
-    canvas.toBlob(blob => {
-        const file = new File([blob], 'dua.png', { type: 'image/png' });
-        if (navigator.share) navigator.share({ files: [file], title: 'Dua' });
-        
-        ui.style.display = 'block'; // Buttons wapas
-        watermark.style.display = 'none'; // Watermark hide
+
+    // 1. Button ko "Generating" state mein daalein
+    btn.innerText = "Generating...";
+    btn.disabled = true;
+
+    // 2. UI elements ko hide karein
+    ui.style.visibility = 'hidden'; 
+    watermark.style.display = 'block';
+
+    // 3. Browser ko thoda time dein takki UI update ho jaye (Reflow)
+    await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
+    try {
+        const canvas = await html2canvas(captureArea, { 
+            scale: 2,
+            backgroundColor: '#ffffff',
+            useCORS: true 
+        });
+
+        canvas.toBlob(blob => {
+            const file = new File([blob], 'dua.png', { type: 'image/png' });
+            if (navigator.share) {
+                navigator.share({ files: [file], title: 'Dua' });
+            } else {
+                alert("Share feature supported nahi hai.");
+            }
+        });
+    } catch (err) {
+        console.error("Image generation error:", err);
+    } finally {
+        // 4. Sab wapas normal karein (chahe error aaye ya success)
+        ui.style.visibility = 'visible';
+        watermark.style.display = 'none';
         btn.innerText = "📸 Share Image";
-    });
+        btn.disabled = false;
+    }
 }
+
 
 /*
 // 3. loadEvents mein ye line update karein
