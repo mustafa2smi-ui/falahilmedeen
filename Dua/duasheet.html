@@ -93,6 +93,7 @@ async function loadEvents() {
         allEventsData.forEach((data, i) => {
             const row = document.createElement('div');
             row.className = 'event-row show';
+row.setAttribute('data-category', data.cat); 
             row.onclick = () => openLightbox(i);
             row.innerHTML = `<div class="date-col">${i + 1}</div><div class="content-col"><h3>${data.title}</h3></div>`;
             container.appendChild(row);
@@ -101,7 +102,42 @@ async function loadEvents() {
         container.innerHTML = "Data load karne mein error aaya.";
     }
 }
+// --- Naya Filter aur Share Code ---
 
+// 1. Filter Logic
+function filterDua(cat, btn) {
+    // Buttons active class update
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const rows = document.querySelectorAll('.event-row');
+    rows.forEach(row => {
+        const rowCat = row.getAttribute('data-category');
+        if (cat === 'All' || rowCat === cat) {
+            row.style.display = 'flex';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+}
+
+// 2. Share Text Logic
+function shareAsText() {
+    const data = allEventsData[currentSlideIndex];
+    const text = `*${data.title}*\n\nعربی: ${data.arabic}\nहिन्दी: ${data.hindi}\n\nपढ़ने के लिए यहाँ क्लिक करें: ${window.location.href}`;
+    
+    if (navigator.share) {
+        navigator.share({ title: data.title, text: text });
+    } else {
+        alert("Share feature aapke browser mein support nahi kar raha.");
+    }
+}
+/*
+// 3. loadEvents mein ye line update karein
+// Loop ke andar row.className mein data-category add karein:
+row.className = 'event-row show';
+row.setAttribute('data-category', data.cat); // Yeh line zaroori hai
+*/
 function updateLightboxContent() {
     const data = allEventsData[currentSlideIndex];
     const container = document.getElementById('activeCardContent');
