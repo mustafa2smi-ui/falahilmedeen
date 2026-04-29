@@ -7,6 +7,7 @@
     <meta name="description" content="Masnoon Duas Collection">
     <meta property="og:title" content="Dua Timeline">
     <meta property="og:description" content="Learn and share beautiful duas.">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Amiri&display=swap" rel="stylesheet">
       <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <style>
@@ -63,6 +64,7 @@
     <div class="logo">Dua Timeline App</div>
     <div onclick="alert('Menu Coming Soon')" style="font-size: 1.5rem; cursor: pointer;">☰</div>
 </header>
+    <div class="bismillah-container">﷽</div>
 <div class="filter-container">
     <button class="filter-btn active" onclick="filterDua('All', this)">All</button>
     <button class="filter-btn" onclick="filterDua('Quranic Rabbana Dua', this)">Quranic Rabbana Dua</button>
@@ -169,6 +171,7 @@ function shareAsText() {
         alert("Share feature aapke browser mein support nahi kar raha.");
     }
 }
+    /*
     async function shareAsImage() {
     const btn = event.target;
     const captureArea = document.getElementById('captureArea'); 
@@ -211,29 +214,24 @@ function shareAsText() {
         alert("Image generate nahi ho payi, phir try karein.");
     }
 }
-/*
-async function shareAsImage() {
-    const btn = event.target;
-    // Humne sirf us div ko capture kiya hai jismein Dua hai (buttons ke bina)
-    const captureArea = document.getElementById('captureArea'); 
-    
-    btn.innerText = "Generating...";
-    btn.disabled = true;
-
-    try {
-        const canvas = await html2canvas(captureArea, { scale: 2, backgroundColor: '#ffffff' });
-        // ... baki share logic wahi rahega ...
-        btn.innerText = "📸 Share Image";
-        btn.disabled = false;
-    } catch (err) {
-        alert("Error: " + err.message);
-        btn.innerText = "📸 Share Image";
-        btn.disabled = false;
-    }
-}
-
-
 */
+async function shareAsImage() {
+        const ui = document.getElementById('ui-elements');
+        const watermark = document.getElementById('watermarkBox');
+        const captureArea = document.getElementById('activeCardContent');
+        ui.style.display = 'none';
+        const wmClone = watermark.cloneNode(true);
+        wmClone.style.display = 'block';
+        captureArea.appendChild(wmClone);
+
+        const canvas = await html2canvas(captureArea, { scale: 2 });
+        canvas.toBlob(blob => {
+            const file = new File([blob], 'dua.png', { type: 'image/png' });
+            if (navigator.share) navigator.share({ files: [file], title: 'Dua' });
+        });
+        ui.style.display = 'block';
+        captureArea.removeChild(wmClone);
+}
 /*
 // 3. loadEvents mein ye line update karein
 // Loop ke andar row.className mein data-category add karein:
