@@ -138,12 +138,35 @@ function shareAsText() {
         alert("Share feature aapke browser mein support nahi kar raha.");
     }
 }
+    async function shareAsImage() {
+    const btn = event.target;
+    btn.innerText = "Generating..."; // User feedback
+    
+    const ui = document.getElementById('ui-elements');
+    const captureArea = document.getElementById('activeCardContent');
+    const watermark = document.getElementById('watermarkBox');
+    
+    ui.style.display = 'none'; // Buttons hide
+    watermark.style.display = 'block'; // Watermark show
+    
+    const canvas = await html2canvas(captureArea, { scale: 2 });
+    canvas.toBlob(blob => {
+        const file = new File([blob], 'dua.png', { type: 'image/png' });
+        if (navigator.share) navigator.share({ files: [file], title: 'Dua' });
+        
+        ui.style.display = 'block'; // Buttons wapas
+        watermark.style.display = 'none'; // Watermark hide
+        btn.innerText = "📸 Share Image";
+    });
+}
+
 /*
 // 3. loadEvents mein ye line update karein
 // Loop ke andar row.className mein data-category add karein:
 row.className = 'event-row show';
 row.setAttribute('data-category', data.cat); // Yeh line zaroori hai
 */
+    /*
 function updateLightboxContent() {
     const data = allEventsData[currentSlideIndex];
     const container = document.getElementById('activeCardContent');
@@ -166,6 +189,53 @@ function updateLightboxContent() {
         </div>
     `;
 }
+*/
+    function updateLightboxContent() {
+    const data = allEventsData[currentSlideIndex];
+    const container = document.getElementById('activeCardContent');
+    
+    // Sirf wahi line banayein jiska data available hai
+    let contentHtml = `<div id="captureArea">
+        <span style="color:var(--line); font-size:0.8rem; font-weight:600;">Dua #${currentSlideIndex + 1}</span>
+        <h2 style="margin:5px 0; font-size:1.3rem;">${data.title}</h2>
+        <div class="arabic-text">${data.arabic}</div>`;
+
+    if (data.hindi && data.hindi.trim() !== "") contentHtml += `<p style="margin-bottom:8px;"><b>Hindi:</b> ${data.hindi}</p>`;
+    if (data.urdu && data.urdu.trim() !== "") contentHtml += `<p style="margin-bottom:8px;"><b>Urdu:</b> ${data.urdu}</p>`;
+    if (data.english && data.english.trim() !== "") contentHtml += `<p style="margin-bottom:8px;"><b>English:</b> ${data.english}</p>`;
+    if (data.tamil && data.tamil.trim() !== "") contentHtml += `<p style="margin-bottom:8px;"><b>Tamil:</b> ${data.tamil}</p>`;
+    
+    contentHtml += `</div>`;
+
+    // Audio Buttons
+    let audioHtml = "";
+    if (data.audioAr && data.audioAr.length > 5) audioHtml += `<button class="audio-btn" style="background:#2ecc71;" onclick="playAudio('${data.audioAr}')">🔊 Arabic Recitation</button>`;
+    if (data.audioTr && data.audioTr.length > 5) audioHtml += `<button class="audio-btn" style="background:#3498db;" onclick="playAudio('${data.audioTr}')">🔊 Tarjuma</button>`;
+
+    container.innerHTML = contentHtml + `
+        <div id="ui-elements">
+            ${audioHtml}
+            <button class="btn-card-share" onclick="shareAsImage()">📸 Share Image</button>
+            <button class="btn-card-share" style="background:#27ae60;" onclick="shareAsText()">✍️ Share Text</button>
+        </div>
+    `;
+    setupColorPicker();
+    container.scrollTop = 0;
+}
+function changeSlide(n) {
+    currentSlideIndex = (currentSlideIndex + n + allEventsData.length) % allEventsData.length;
+    updateLightboxContent();
+}
+
+// Swipe Detector (Ise script mein kahin bhi dal dein)
+const slider = document.getElementById('cardLightbox');
+let touchstartX = 0;
+slider.addEventListener('touchstart', e => touchstartX = e.changedTouches[0].screenX, {passive: true});
+slider.addEventListener('touchend', e => {
+    let diff = e.changedTouches[0].screenX - touchstartX;
+    if (diff > 50) changeSlide(-1); // Right Swipe
+    else if (diff < -50) changeSlide(1); // Left Swipe
+}, {passive: true});
 
 function openLightbox(index) {
     currentSlideIndex = index;
