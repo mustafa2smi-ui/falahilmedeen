@@ -83,12 +83,13 @@
         <button class="nav-btn next" onclick="changeSlide(1)">&#10095;</button>
     </div>
 </div>
+<div id="hiddenCapture" style="position:fixed; left:-9999px; top:0; width:450px; background:white; padding:20px;"></div>
 
 <script>
 const API_URL = "https://script.google.com/macros/s/AKfycbzI0oK1KNxMdOvyMmg0yJyUIdJdC1facKuTQCIHf5Hm3WF-eu54IdAeJgoWenF9JNeiXg/exec"; 
 let allEventsData = [];
 let currentSlideIndex = 0;
-
+/*
 async function loadEvents() {
     const container = document.getElementById('mainTimeline');
     try {
@@ -108,6 +109,29 @@ row.setAttribute('data-category', data.cat);
         container.innerHTML = "Data load karne mein error aaya.";
     }
 }
+    */
+        async function loadEvents() {
+    const container = document.getElementById('mainTimeline');
+    
+    // 1. Pehle local storage check karo
+    const cachedData = localStorage.getItem('duaData');
+    if (cachedData) {
+        allEventsData = JSON.parse(cachedData);
+        renderTimeline(); // Function jo HTML banata hai
+    }
+
+    // 2. Background mein API call karo aur data update karo
+    try {
+        const response = await fetch(API_URL);
+        const data = await response.json();
+        allEventsData = data;
+        localStorage.setItem('duaData', JSON.stringify(data)); // Data save kar lo
+        renderTimeline(); 
+    } catch (e) {
+        console.log("Error fetching data");
+    }
+}
+
 // --- Naya Filter aur Share Code ---
 
 // 1. Filter Logic
@@ -139,22 +163,28 @@ function shareAsText() {
     }
 }
     async function shareAsImage() {
-        const ui = document.getElementById('ui-elements');
-        const watermark = document.getElementById('watermarkBox');
-        const captureArea = document.getElementById('activeCardContent');
-        ui.style.display = 'none';
-        const wmClone = watermark.cloneNode(true);
-        wmClone.style.display = 'block';
-        captureArea.appendChild(wmClone);
+    const btn = event.target;
+    const data = allEventsData[currentSlideIndex];
+    const hiddenDiv = document.getElementById('hiddenCapture');
+    
+    btn.innerText = "Generating...";
+    
+    // Hidden div mein wahi content daalo jo card mein hai
+    hiddenDiv.innerHTML = `
+        <h2 style="text-align:center;">${data.title}</h2>
+        <div style="font-family: 'Amiri'; text-align:right; font-size: 2rem;">${data.arabic}</div>
+        <p style="text-align:center;">${data.hindi || ""}</p>
+        <div id="watermarkBox" style="text-align:center; margin-top:20px;">Dua Timeline App</div>
+    `;
 
-        const canvas = await html2canvas(captureArea, { scale: 2 });
-        canvas.toBlob(blob => {
-            const file = new File([blob], 'dua.png', { type: 'image/png' });
-            if (navigator.share) navigator.share({ files: [file], title: 'Dua' });
-        });
-        ui.style.display = 'block';
-        captureArea.removeChild(wmClone);
-    }
+    const canvas = await html2canvas(hiddenDiv, { scale: 2 });
+    canvas.toBlob(blob => {
+        const file = new File([blob], 'dua.png', { type: 'image/png' });
+        if (navigator.share) navigator.share({ files: [file] });
+        btn.innerText = "📸 Share Image";
+    });
+}
+
 
 
 /*
