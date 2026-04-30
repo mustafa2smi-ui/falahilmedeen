@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Duas - Islamic Supplications | أدعية يومية</title>
+    <meta name="description" content="A comprehensive collection of authentic Islamic Duas with translations in Arabic, Urdu, Hindi, English, and Tamil. Daily supplications for every occasion.">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Noto+Nastaliq+Urdu:wght@400;700&family=Poppins:wght@300;400;500;600;700&family=Hind+Madurai:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a5f4a;
+            --secondary: #c4a747;
+            --gold: #d4af37;
+            --bg-light: #f8f5f0;
+            --bg-card: #fffef9;
+            --text-dark: #2c2416;
+            --text-medium: #5a4e3c;
+            --text-light: #f8f5f0;
+            --border-soft: #e8dfd3;
+            --shadow-soft: 0 10px 40px rgba(42, 35, 20, 0.08);
+            --shadow-hover: 0 20px 50px rgba(42, 35, 20, 0.15);
+            --radius: 20px;
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f8f4e8 0%, #f3ebd8 30%, #faf7f0 60%, #f5eedb 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: var(--text-dark);
+            line-height: 1.7;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Decorative background pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(196, 167, 71, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(26, 95, 74, 0.04) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Geometric Islamic pattern overlay */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(196, 167, 71, 0.02) 40px, rgba(196, 167, 71, 0.02) 41px),
+                repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(26, 95, 74, 0.02) 40px, rgba(26, 95, 74, 0.02) 41px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 40px 20px 30px;
+            position: relative;
+        }
+
+        .header-decoration {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .header-line {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .header-star {
+            color: var(--gold);
+            font-size: 1.2rem;
+            animation: pulse-star 2s infinite;
+        }
+
+        @keyframes pulse-star {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.3); }
+        }
+
+        .site-title {
+            font-family: 'Amiri Quran', serif;
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(26, 95, 74, 0.1);
+        }
+
+        .site-subtitle {
+            font-size: 1rem;
+            color: var(--text-medium);
+            font-weight: 400;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .bismillah {
+            font-family: 'Amiri Quran', serif;
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin: 20px 0;
+            opacity: 0.9;
+        }
+
+        /* Stats bar */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 15px 25px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border-radius: 50px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border-soft);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-medium);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Category pills */
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .category-pill {
+            padding: 10px 20px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1.5px solid var(--border-soft);
+            color: var(--text-medium);
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+
+        .category-pill:hover,
+        .category-pill.active {
+            background: var(--primary);
+            color: var(--text-light);
+            border-color: var(--primary);
+            box-shadow: 0 8px 25px rgba(26, 95, 74, 0.25);
+            transform: translateY(-2px);
+        }
+
+        /* Dua Cards */
+        .dua-card {
+            background: linear-gradient(135deg, #fffef9 0%, #fdfaf3 50%, #fffdf7 100%);
+            border-radius: var(--radius);
+            padding: 35px 30px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border-soft);
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dua-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--gold), var(--secondary));
+            border-radius: var(--radius) var(--radius) 0 0;
+        }
+
+        .dua-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .dua-number {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 0.8rem;
+            color: var(--secondary);
+            font-weight: 600;
+            letter-spacing: 1px;
+            opacity: 0.7;
+        }
+
+        .dua-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 8px;
+            padding-right: 60px;
+        }
+
+        .dua-context {
+            font-size: 0.85rem;
+            color: var(--text-medium);
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        .dua-arabic {
+            font-family: 'Amiri Quran', serif;
+            font-size: 2rem;
+            color: #1a3c2a;
+            text-align: right;
+            direction: rtl;
+            line-height: 2.2;
+            padding: 20px 25px;
+            background: linear-gradient(135deg, #fdf8ee 0%, #faf5e6 100%);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(196, 167, 71, 0.2);
+            position: relative;
+        }
+
+        .dua-arabic::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 15px;
+            background: linear-gradient(135deg, rgba(196, 167, 71, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .translation-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .translation-box {
+            padding: 14px 16px;
+            border-radius: 12px;
+            background: rgba(248, 245, 240, 0.6);
+            border: 1px solid var(--border-soft);
+            transition: var(--transition);
+        }
+
+        .translation-box:hover {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: var(--secondary);
+        }
+
+        .translation-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .translation-text {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+
+        .urdu-text {
+            font-family: 'Noto Nastaliq Urdu', serif;
+            direction: rtl;
+            font-size: 1.1rem;
+        }
+
+        .tamil-text {
+            font-family: 'Hind Madurai', sans-serif;
+        }
+
+        .translation-full {
+            grid-column: 1 / -1;
+        }
+
+        /* Action buttons */
+        .card-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 5px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-share {
+            background: linear-gradient(135deg, var(--primary), #1a7a5a);
+            color: white;
+            box-shadow: 0 6px 20px rgba(26, 95, 74, 0.3);
+        }
+
+        .btn-share:hover {
+            box-shadow: 0 10px 30px rgba(26, 95, 74, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-copy {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--text-dark);
+            border: 1.5px solid var(--border-soft);
+        }
+
+        .btn-copy:hover {
+            background: white;
+            border-color: var(--secondary);
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-whatsapp:hover {
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #1a3c2a;
+            color: white;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            z-index: 1000;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* Screenshot overlay */
+        .screenshot-mode .dua-card {
+            box-shadow: 0 15px 60px rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: var(--text-medium);
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .translation-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .site-title {
+                font-size: 2.2rem;
+            }
+            
+            .dua-arabic {
+                font-size: 1.5rem;
+                padding: 15px 18px;
+            }
+            
+            .dua-card {
+                padding: 25px 18px;
+            }
+            
+            .card-actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                justify-content: center;
+                width: 100%;
+            }
+            
+            .stats-bar {
+                gap: 15px;
+                padding: 12px 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .stat-number {
+                font-size: 1.2rem;
+            }
+            
+            .category-pill {
+                padding: 8px 14px;
+                font-size: 0.75rem;
+            }
+        }
+
+        /* Print-friendly for screenshot */
+        @media print {
+            .dua-card {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 2px solid #e8dfd3;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-decoration">
+                <span class="header-line"></span>
+                <span class="header-star">✦</span>
+                <span class="header-line"></span>
+            </div>
+            <h1 class="site-title">Daily Duas</h1>
+            <p class="site-subtitle">Authentic Islamic Supplications</p>
+            <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
+        </header>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-number" id="totalDuas">3</div>
+                <div class="stat-label">Duas</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">5</div>
+                <div class="stat-label">Languages</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">300+</div>
+                <div class="stat-label">Coming Soon</div>
+            </div>
+        </div>
+
+        <!-- Categories -->
+        <div class="categories">
+            <button class="category-pill active">All Duas</button>
+            <button class="category-pill">Morning</button>
+            <button class="category-pill">Evening</button>
+            <button class="category-pill">Protection</button>
+            <button class="category-pill">Forgiveness</button>
+            <button class="category-pill">Daily Life</button>
+        </div>
+
+        <!-- Duas Container -->
+        <div id="duasContainer">
+            <!-- Dua cards will be rendered here by JavaScript -->
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>✦ May these supplications bring peace to your heart ✦</p>
+            <p style="margin-top: 5px; font-size: 0.75rem;">More Duas coming soon • 300+ Duas planned</p>
+        </footer>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // Duas Data
+        const duasData = [
+            {
+                id: 1,
+                title: "Dua for Seeking Knowledge",
+                context: "To be recited before studying or seeking knowledge",
+                arabic: "رَبِّ زِدْنِي عِلْمًا",
+                urdu: "اے میرے رب! میرے علم میں اضافہ فرما",
+                hindi: "ऐ मेरे रब! मेरे ज्ञान में वृद्धि कर दे",
+                english: "O my Lord! Increase me in knowledge",
+                tamil: "என் இறைவா! என் அறிவை அதிகப்படுத்துவாயாக",
+                reference: "Surah Ta-Ha (20:114)",
+                category: "Daily Life"
+            },
+            {
+                id: 2,
+                title: "Dua for Parents' Mercy",
+                context: "To be recited for the well-being and mercy upon parents",
+                arabic: "رَّبِّ ٱرْحَمْهُمَا كَمَا رَبَّيَانِى صَغِيرًۭا",
+                urdu: "اے میرے رب! ان دونوں پر رحم فرما جیسا کہ انہوں نے مجھے بچپن میں پالا",
+                hindi: "ऐ मेरे रब! उन दोनों पर दया कर जैसे उन्होंने मुझे बचपन में पाला",
+                english: "My Lord! Have mercy upon them as they brought me up when I was small",
+                tamil: "என் இறைவா! அவர்கள் இருவருக்கும் கருணை காட்டுவாயாக, அவர்கள் என்னைச் சிறு வயதில் வளர்த்ததைப் போல",
+                reference: "Surah Al-Isra (17:24)",
+                category: "Daily Life"
+            },
+            {
+                id: 3,
+                title: "Dua for Protection from Evil",
+                context: "To be recited for seeking protection from all forms of evil",
+                arabic: "أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ",
+                urdu: "میں اللہ کے مکمل کلمات کے ذریعے اس کی تمام مخلوقات کے شر سے پناہ مانگتا ہوں",
+                hindi: "मैं अल्लाह के पूर्ण शब्दों के द्वारा उसकी सभी रचनाओं की बुराई से शरण माँगता हूँ",
+                english: "I seek refuge in the perfect words of Allah from the evil of what He has created",
+                tamil: "அல்லாஹ்வின் முழுமையான வார்த்தைகளைக் கொண்டு, அவன் படைத்தவற்றின் தீமையிலிருந்து பாதுகாப்புத் தேடுகிறேன்",
+                reference: "Sahih Muslim",
+                category: "Protection"
+            }
+        ];
+
+        // Render Duas
+        function renderDuas(filterCategory = 'All Duas') {
+            const container = document.getElementById('duasContainer');
+            let filteredDuas = filterCategory === 'All Duas' 
+                ? duasData 
+                : duasData.filter(dua => dua.category === filterCategory);
+            
+            document.getElementById('totalDuas').textContent = filteredDuas.length;
+            
+            container.innerHTML = filteredDuas.map(dua => `
+                <div class="dua-card" id="dua-card-${dua.id}" data-dua-id="${dua.id}">
+                    <span class="dua-number">Dua #${dua.id}</span>
+                    <h2 class="dua-title">${dua.title}</h2>
+                    <p class="dua-context">📖 ${dua.context}</p>
+                    
+                    <div class="dua-arabic">${dua.arabic}</div>
+                    
+                    <div class="translation-section">
+                        <div class="translation-box">
+                            <div class="translation-label">Urdu • اردو</div>
+                            <div class="translation-text urdu-text">${dua.urdu}</div>
+                        </div>
+                        <div class="translation-box">
+                            <div class="translation-label">Hindi • हिन्दी</div>
+                            <div class="translation-text">${dua.hindi}</div>
+                        </div>
+                        <div class="translation-box">
+                            <div class="translation-label">English</div>
+                            <div class="translation-text">${dua.english}</div>
+                        </div>
+                        <div class="translation-box">
+                            <div class="translation-label">Tamil • தமிழ்</div>
+                            <div class="translation-text tamil-text">${dua.tamil}</div>
+                        </div>
+                    </div>
+                    
+                    <p style="font-size: 0.8rem; color: #8a7e6b; margin-top: 8px; font-style: italic;">
+                        📚 ${dua.reference}
+                    </p>
+                    
+                    <div class="card-actions">
+                        <button class="btn btn-share" onclick="shareDuaAsImage(${dua.id})" title="Share as Image">
+                            📸 Share as Image
+                        </button>
+                        <button class="btn btn-copy" onclick="copyDuaText(${dua.id})" title="Copy Dua Text">
+                            📋 Copy Text
+                        </button>
+                        <button class="btn btn-whatsapp" onclick="shareToWhatsApp(${dua.id})" title="Share on WhatsApp">
+                            💬 WhatsApp
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Copy Dua Text
+        function copyDuaText(duaId) {
+            const dua = duasData.find(d => d.id === duaId);
+            const text = `🕌 *${dua.title}*\n\n` +
+                        `🇸🇦 ${dua.arabic}\n\n` +
+                        `🇬🇧 ${dua.english}\n\n` +
+                        `🇵🇰 ${dua.urdu}\n\n` +
+                        `🇮🇳 ${dua.hindi}\n\n` +
+                        `🇱🇰 ${dua.tamil}\n\n` +
+                        `📚 ${dua.reference}\n\n` +
+                        `— Shared from Daily Duas App`;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('✅ Dua copied successfully! Assalamualaikum 🤲');
+            }).catch(() => {
+                showToast('❌ Failed to copy. Please try again.');
+            });
+        }
+
+        // Share to WhatsApp
+        function shareToWhatsApp(duaId) {
+            const dua = duasData.find(d => d.id === duaId);
+            const text = `🕌 *${dua.title}*\n\n` +
+                        `*Arabic:* ${dua.arabic}\n\n` +
+                        `*English:* ${dua.english}\n\n` +
+                        `*Urdu:* ${dua.urdu}\n\n` +
+                        `*Hindi:* ${dua.hindi}\n\n` +
+                        `*Tamil:* ${dua.tamil}\n\n` +
+                        `📚 ${dua.reference}\n\n` +
+                        `Assalamualaikum wa Rahmatullahi wa Barakatuh 🤲`;
+            
+            const encoded = encodeURIComponent(text);
+            window.open(`https://wa.me/?text=${encoded}`, '_blank');
+        }
+
+        // Share as Image (Screenshot)
+        async function shareDuaAsImage(duaId) {
+            const card = document.getElementById(`dua-card-${duaId}`);
+            const btn = card.querySelector('.btn-share');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '⏳ Generating...';
+            btn.disabled = true;
+            
+            try {
+                // Add screenshot mode class
+                card.classList.add('screenshot-mode');
+                
+                // Wait for fonts to load
+                await document.fonts.ready;
+                
+                // Small delay for rendering
+                await new Promise(resolve => setTimeout(resolve, 300));
+                
+                const canvas = await html2canvas(card, {
+                    scale: 3, // High resolution
+                    useCORS: true,
+                    backgroundColor: '#fffef9',
+                    logging: false,
+                    allowTaint: true,
+                    windowWidth: card.scrollWidth,
+                    windowHeight: card.scrollHeight
+                });
+                
+                // Remove screenshot mode
+                card.classList.remove('screenshot-mode');
+                
+                // Convert to blob
+                canvas.toBlob(async (blob) => {
+                    if (navigator.share && navigator.canShare) {
+                        const file = new File([blob], `dua-${duaId}.png`, { type: 'image/png' });
+                        const shareData = {
+                            files: [file],
+                            title: 'Daily Dua',
+                            text: 'Assalamualaikum! Here is a beautiful Dua for you 🤲'
+                        };
+                        
+                        try {
+                            await navigator.share(shareData);
+                            showToast('✅ Dua image shared successfully! JazakAllah Khair 🤲');
+                        } catch (err) {
+                            // Fallback: download
+                            downloadImage(canvas, duaId);
+                        }
+                    } else {
+                        // Fallback: download
+                        downloadImage(canvas, duaId);
+                    }
+                }, 'image/png', 1.0);
+                
+            } catch (error) {
+                console.error('Screenshot error:', error);
+                showToast('❌ Error generating image. Please try again.');
+                card.classList.remove('screenshot-mode');
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        // Download image fallback
+        function downloadImage(canvas, duaId) {
+            const link = document.createElement('a');
+            link.download = `Daily-Dua-${duaId}.png`;
+            link.href = canvas.toDataURL('image/png', 1.0);
+            link.click();
+            showToast('📥 Dua image downloaded! You can now share it. 🤲');
+        }
+
+        // Toast Notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            clearTimeout(toast.timeout);
+            toast.timeout = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Category Filter
+        document.querySelectorAll('.category-pill').forEach(pill => {
+            pill.addEventListener('click', function() {
+                document.querySelectorAll('.category-pill').forEach(p => p.classList.remove('active'));
+                this.classList.add('active');
+                renderDuas(this.textContent);
+            });
+        });
+
+        // Initial render
+        renderDuas();
+
+        // Add smooth scroll behavior
+        document.querySelectorAll('.category-pill').forEach(pill => {
+            pill.addEventListener('click', function() {
+                document.getElementById('duasContainer').scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start' 
+                });
+            });
+        });
+
+        console.log('🕌 Daily Duas Website Ready');
+        console.log('📿 Assalamualaikum wa Rahmatullahi wa Barakatuh');
+        console.log('✨ Features: Share as Image | Copy Text | WhatsApp Share | 5 Languages');
+        console.log('📈 300+ Duas coming soon, currently 3 Duas available');
+    </script>
+</body>
+</html>
