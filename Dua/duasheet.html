@@ -56,6 +56,16 @@
             .prev, .next { top: auto; bottom: -60px; transform: none; }
             .prev { left: 20%; } .next { right: 20%; }
         }
+        /* Lightbox ke andar watermark ko static position dein */
+#watermarkBox {
+    width: 100%;
+    text-align: center;
+    padding: 15px 0;
+    margin-top: 20px;
+    border-top: 1px solid #eee;
+    display: none; /* Default hide */
+}
+
     </style>
 </head>
 <body>
@@ -215,6 +225,7 @@ function shareAsText() {
     }
 }
 */
+    /*
 async function shareAsImage() {
         const ui = document.getElementById('ui-elements');
         const watermark = document.getElementById('watermarkBox');
@@ -232,6 +243,44 @@ async function shareAsImage() {
         ui.style.display = 'block';
         captureArea.removeChild(wmClone);
 }
+    */
+        async function shareAsImage() {
+    const btn = event.target;
+    const ui = document.getElementById('ui-elements');
+    const captureArea = document.getElementById('activeCardContent');
+    const watermark = document.getElementById('watermarkBox');
+
+    btn.innerText = "Generating...";
+    btn.disabled = true;
+
+    // 1. UI hide aur Watermark show
+    ui.style.display = 'none';
+    watermark.style.display = 'block';
+
+    // 2. html2canvas ko pura content scan karne dein
+    try {
+        const canvas = await html2canvas(captureArea, { 
+            scale: 2,
+            windowWidth: captureArea.scrollWidth,
+            windowHeight: captureArea.scrollHeight,
+            logging: false 
+        });
+
+        canvas.toBlob(blob => {
+            const file = new File([blob], 'dua.png', { type: 'image/png' });
+            if (navigator.share) navigator.share({ files: [file], title: 'Dua' });
+        });
+    } catch (err) {
+        console.error(err);
+    } finally {
+        // 3. UI wapas laayein
+        ui.style.display = 'block';
+        watermark.style.display = 'none';
+        btn.innerText = "📸 Share Image";
+        btn.disabled = false;
+    }
+}
+
 /*
 // 3. loadEvents mein ye line update karein
 // Loop ke andar row.className mein data-category add karein:
