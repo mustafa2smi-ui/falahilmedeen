@@ -481,6 +481,20 @@
                 border: 2px solid #e8dfd3;
             }
         }
+        /* Watermark */
+.watermark {
+    text-align: right;
+    font-size: 0.7rem;
+    color: #c4b998;
+    opacity: 0.5;
+    font-style: italic;
+    margin-top: 12px;
+    letter-spacing: 0.5px;
+    user-select: none;
+    pointer-events: none;
+    font-weight: 400;
+    disable: true; /* As requested */
+}
     </style>
 </head>
 <body>
@@ -619,19 +633,22 @@
                         📚 ${dua.reference}
                     </p>
                     
-                    <div class="card-actions">
-                        <button class="btn btn-share" onclick="shareDuaAsImage(${dua.id})" title="Share as Image">
-                            📸 Share as Image
-                        </button>
-                        <button class="btn btn-copy" onclick="copyDuaText(${dua.id})" title="Copy Dua Text">
-                            📋 Copy Text
-                        </button>
-                        <button class="btn btn-whatsapp" onclick="shareToWhatsApp(${dua.id})" title="Share on WhatsApp">
-                            💬 WhatsApp
-                        </button>
-                    </div>
-                </div>
-            `).join('');
+                            <div class="card-actions">
+            <button class="btn btn-share" onclick="shareDuaAsImage(${dua.id})" title="Share as Image">
+                📸 Share as Image
+            </button>
+            <button class="btn btn-copy" onclick="copyDuaText(${dua.id})" title="Copy Dua Text">
+                📋 Copy Text
+            </button>
+            <button class="btn btn-whatsapp" onclick="shareToWhatsApp(${dua.id})" title="Share on WhatsApp">
+                💬 WhatsApp
+            </button>
+        </div>
+        
+        <!-- Watermark -->
+        <div class="watermark">falahilmedeen.in</div>
+    </div>
+`).join('');
         }
 
         // Copy Dua Text
@@ -668,7 +685,7 @@
             const encoded = encodeURIComponent(text);
             window.open(`https://wa.me/?text=${encoded}`, '_blank');
         }
-
+/*
         // Share as Image (Screenshot)
         async function shareDuaAsImage(duaId) {
             const card = document.getElementById(`dua-card-${duaId}`);
@@ -732,7 +749,76 @@
                 btn.disabled = false;
             }
         }
-
+*/
+        async function shareDuaAsImage(duaId) {
+    const card = document.getElementById(`dua-card-${duaId}`);
+    const btn = card.querySelector('.btn-share');
+    const originalText = btn.innerHTML;
+    
+    // 🔴 HIDE ALL BUTTONS before screenshot
+    const cardActions = card.querySelector('.card-actions');
+    const originalDisplay = cardActions.style.display;
+    cardActions.style.display = 'none';
+    
+    btn.innerHTML = '⏳ Generating...';
+    btn.disabled = true;
+    
+    try {
+        card.classList.add('screenshot-mode');
+        await document.fonts.ready;
+        await new Promise(resolve => setTimeout(resolve, 300));
+        
+        const canvas = await html2canvas(card, {
+            scale: 3,
+            useCORS: true,
+            backgroundColor: '#fffef9',
+            logging: false,
+            allowTaint: true,
+            windowWidth: card.scrollWidth,
+            windowHeight: card.scrollHeight
+        });
+        
+        card.classList.remove('screenshot-mode');
+        
+        // 🟢 SHOW BUTTONS BACK after screenshot
+        cardActions.style.display = originalDisplay;
+        
+        canvas.toBlob(async (blob) => {
+            // ... rest remains same
+            if (navigator.share && navigator.canShare) {
+                        const file = new File([blob], `dua-${duaId}.png`, { type: 'image/png' });
+                        const shareData = {
+                            files: [file],
+                            title: 'Daily Dua',
+                            text: 'Assalamualaikum! Here is a beautiful Dua for you 🤲'
+                        };
+                        
+                        try {
+                            await navigator.share(shareData);
+                            showToast('✅ Dua image shared successfully! JazakAllah Khair 🤲');
+                        } catch (err) {
+                            // Fallback: download
+                            downloadImage(canvas, duaId);
+                        }
+                    } else {
+                        // Fallback: download
+                        downloadImage(canvas, duaId);
+                    }
+            // Make sure buttons are restored even in fallback
+            cardActions.style.display = originalDisplay;
+        }, 'image/png', 1.0);
+        
+    } catch (error) {
+        console.error('Screenshot error:', error);
+        showToast('❌ Error generating image. Please try again.');
+        card.classList.remove('screenshot-mode');
+        // 🟢 Restore buttons on error too
+        cardActions.style.display = originalDisplay;
+    } finally {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+    }
+}
         // Download image fallback
         function downloadImage(canvas, duaId) {
             const link = document.createElement('a');
