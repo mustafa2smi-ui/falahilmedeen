@@ -423,7 +423,112 @@
             font-size: 0.85rem;
             opacity: 0.7;
         }
+/* Featured Dua Card - For Long Duas like Ayatul Kursi */
+.dua-card.featured {
+    max-width: 100%;
+    background: linear-gradient(135deg, #fffbeb 0%, #fef9e7 30%, #fffdf5 60%, #fdf8ed 100%);
+    border: 2px solid rgba(196, 167, 71, 0.3);
+    box-shadow: 0 15px 50px rgba(26, 95, 74, 0.1);
+    position: relative;
+}
 
+.dua-card.featured::before {
+    height: 5px;
+    background: linear-gradient(90deg, #d4af37, #1a5f4a, #c4a747, #d4af37);
+}
+
+.dua-card.featured::after {
+    content: '✨ FEATURED DUA ✨';
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #1a5f4a, #1a7a5a);
+    color: #f8f5f0;
+    padding: 6px 22px;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    z-index: 2;
+    box-shadow: 0 5px 20px rgba(26, 95, 74, 0.3);
+}
+
+/* Featured card Arabic text - larger */
+.dua-card.featured .dua-arabic {
+    font-size: 2.4rem;
+    padding: 30px 35px;
+    background: linear-gradient(135deg, #fdf8ee 0%, #faf3e0 100%);
+    border: 2px solid rgba(196, 167, 71, 0.25);
+    border-radius: 18px;
+    line-height: 2.5;
+}
+
+/* Full-width container override for featured */
+.dua-card.featured {
+    grid-column: 1 / -1;
+}
+
+/* Featured translation section - 2x2 grid for better readability */
+.dua-card.featured .translation-section {
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+/* Featured card hover */
+.dua-card.featured:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 60px rgba(26, 95, 74, 0.15);
+}
+
+/* Featured card reference */
+.dua-card.featured .dua-reference {
+    background: rgba(26, 95, 74, 0.05);
+    padding: 10px 15px;
+    border-radius: 10px;
+    border-left: 3px solid #1a5f4a;
+}
+
+/* Container width adjustment for better readability */
+@media (min-width: 769px) {
+    .container {
+        max-width: 950px; /* Slightly wider */
+    }
+    
+    /* Featured card gets extra width on desktop */
+    .dua-card.featured {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1000px;
+    }
+}
+
+/* Responsive for featured cards */
+@media (max-width: 768px) {
+    .dua-card.featured::after {
+        font-size: 0.6rem;
+        padding: 5px 16px;
+        top: -12px;
+        letter-spacing: 2px;
+    }
+    
+    .dua-card.featured .dua-arabic {
+        font-size: 1.6rem;
+        padding: 18px 15px;
+        line-height: 2.2;
+    }
+    
+    .dua-card.featured {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
         /* Responsive */
         @media (max-width: 768px) {
             .translation-section {
@@ -555,43 +660,59 @@
     <script>
         // Duas Data
         const duasData = [
-            {
-                id: 1,
-                title: "Dua for Seeking Knowledge",
-                context: "To be recited before studying or seeking knowledge",
-                arabic: "رَبِّ زِدْنِي عِلْمًا",
-                urdu: "اے میرے رب! میرے علم میں اضافہ فرما",
-                hindi: "ऐ मेरे रब! मेरे ज्ञान में वृद्धि कर दे",
-                english: "O my Lord! Increase me in knowledge",
-                tamil: "என் இறைவா! என் அறிவை அதிகப்படுத்துவாயாக",
-                reference: "Surah Ta-Ha (20:114)",
-                category: "Daily Life"
-            },
-            {
-                id: 2,
-                title: "Dua for Parents' Mercy",
-                context: "To be recited for the well-being and mercy upon parents",
-                arabic: "رَّبِّ ٱرْحَمْهُمَا كَمَا رَبَّيَانِى صَغِيرًۭا",
-                urdu: "اے میرے رب! ان دونوں پر رحم فرما جیسا کہ انہوں نے مجھے بچپن میں پالا",
-                hindi: "ऐ मेरे रब! उन दोनों पर दया कर जैसे उन्होंने मुझे बचपन में पाला",
-                english: "My Lord! Have mercy upon them as they brought me up when I was small",
-                tamil: "என் இறைவா! அவர்கள் இருவருக்கும் கருணை காட்டுவாயாக, அவர்கள் என்னைச் சிறு வயதில் வளர்த்ததைப் போல",
-                reference: "Surah Al-Isra (17:24)",
-                category: "Daily Life"
-            },
-            {
-                id: 3,
-                title: "Dua for Protection from Evil",
-                context: "To be recited for seeking protection from all forms of evil",
-                arabic: "أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ",
-                urdu: "میں اللہ کے مکمل کلمات کے ذریعے اس کی تمام مخلوقات کے شر سے پناہ مانگتا ہوں",
-                hindi: "मैं अल्लाह के पूर्ण शब्दों के द्वारा उसकी सभी रचनाओं की बुराई से शरण माँगता हूँ",
-                english: "I seek refuge in the perfect words of Allah from the evil of what He has created",
-                tamil: "அல்லாஹ்வின் முழுமையான வார்த்தைகளைக் கொண்டு, அவன் படைத்தவற்றின் தீமையிலிருந்து பாதுகாப்புத் தேடுகிறேன்",
-                reference: "Sahih Muslim",
-                category: "Protection"
-            }
-        ];
+    {
+        id: 1,
+        title: "Dua for Seeking Knowledge",
+        context: "To be recited before studying or seeking knowledge",
+        arabic: "رَبِّ زِدْنِي عِلْمًا",
+        urdu: "اے میرے رب! میرے علم میں اضافہ فرما",
+        hindi: "ऐ मेरे रब! मेरे ज्ञान में वृद्धि कर दे",
+        english: "O my Lord! Increase me in knowledge",
+        tamil: "என் இறைவா! என் அறிவை அதிகப்படுத்துவாயாக",
+        reference: "Surah Ta-Ha (20:114)",
+        category: "Daily Life",
+        featured: false  // Short Dua
+    },
+    {
+        id: 2,
+        title: "Dua for Parents' Mercy",
+        context: "To be recited for the well-being and mercy upon parents",
+        arabic: "رَّبِّ ٱرْحَمْهُمَا كَمَا رَبَّيَانِى صَغِيرًۭا",
+        urdu: "اے میرے رب! ان دونوں پر رحم فرما جیسا کہ انہوں نے مجھے بچپن میں پالا",
+        hindi: "ऐ मेरे रब! उन दोनों पर दया कर जैसे उन्होंने मुझे बचपन में पाला",
+        english: "My Lord! Have mercy upon them as they brought me up when I was small",
+        tamil: "என் இறைவா! அவர்கள் இருவருக்கும் கருணை காட்டுவாயாக, அவர்கள் என்னைச் சிறு வயதில் வளர்த்ததைப் போல",
+        reference: "Surah Al-Isra (17:24)",
+        category: "Daily Life",
+        featured: false
+    },
+    {
+        id: 3,
+        title: "Dua for Protection from Evil",
+        context: "To be recited for seeking protection from all forms of evil",
+        arabic: "أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ",
+        urdu: "میں اللہ کے مکمل کلمات کے ذریعے اس کی تمام مخلوقات کے شر سے پناہ مانگتا ہوں",
+        hindi: "मैं अल्लाह के पूर्ण शब्दों के द्वारा उसकी सभी रचनाओं की बुराई से शरण माँगता हूँ",
+        english: "I seek refuge in the perfect words of Allah from the evil of what He has created",
+        tamil: "அல்லாஹ்வின் முழுமையான வார்த்தைகளைக் கொண்டு, அவன் படைத்தவற்றின் தீமையிலிருந்து பாதுகாப்புத் தேடுகிறேன்",
+        reference: "Sahih Muslim",
+        category: "Protection",
+        featured: false
+    },
+    {
+        id: 4,
+        title: "Ayatul Kursi - The Greatest Verse",
+        context: "The Verse of the Throne - For protection, blessings & peace. Recite after every obligatory prayer.",
+        arabic: "ٱللَّهُ لَآ إِلَـٰهَ إِلَّا هُوَ ٱلْحَىُّ ٱلْقَيُّومُ ۚ لَا تَأْخُذُهُۥ سِنَةٌۭ وَلَا نَوْمٌۭ ۚ لَّهُۥ مَا فِى ٱلسَّمَـٰوَٰتِ وَمَا فِى ٱلْأَرْضِ ۗ مَن ذَا ٱلَّذِى يَشْفَعُ عِندَهُۥٓ إِلَّا بِإِذْنِهِۦ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ ۖ وَلَا يُحِيطُونَ بِشَىْءٍۢ مِّنْ عِلْمِهِۦٓ إِلَّا بِمَا شَآءَ ۚ وَسِعَ كُرْسِيُّهُ ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضَ ۖ وَلَا يَـُٔودُهُۥ حِفْظُهُمَا ۚ وَهُوَ ٱلْعَلِىُّ ٱلْعَظِيمُ",
+        urdu: "اللہ، اس کے سوا کوئی معبود نہیں، وہ زندہ ہے، سب کا نگہبان ہے۔ اسے نہ اونگھ آتی ہے نہ نیند۔ آسمانوں اور زمین میں جو کچھ ہے سب اسی کا ہے۔ کون ہے جو اس کی اجازت کے بغیر اس کے حضور سفارش کر سکے؟ وہ جانتا ہے جو ان کے سامنے ہے اور جو ان کے پیچھے ہے، اور وہ اس کے علم میں سے کسی چیز کا احاطہ نہیں کر سکتے مگر جتنا وہ چاہے۔ اس کی کرسی آسمانوں اور زمین کو گھیرے ہوئے ہے، اور اسے ان دونوں کی حفاظت تھکاتی نہیں، اور وہ بلند، عظمت والا ہے۔",
+        hindi: "अल्लाह, उसके सिवा कोई पूज्य नहीं, वह जीवित है, सबका संरक्षक है। उसे न ऊँघ आती है न नींद। आकाशों और धरती में जो कुछ है सब उसी का है। कौन है जो उसकी अनुमति के बिना उसके पास सिफ़ारिश कर सके? वह जानता है जो उनके सामने है और जो उनके पीछे है, और वे उसके ज्ञान में से किसी चीज़ का घेरा नहीं कर सकते, सिवाय उतने के जितना वह चाहे। उसकी कुर्सी आकाशों और धरती को घेरे हुए है, और उसे उन दोनों की रक्षा थकाती नहीं, और वह सर्वोच्च, महान है।",
+        english: "Allah! There is no deity except Him, the Ever-Living, the Sustainer of all existence. Neither drowsiness overtakes Him nor sleep. To Him belongs whatever is in the heavens and whatever is on the earth. Who is it that can intercede with Him except by His permission? He knows what is before them and what will be after them, and they encompass not a thing of His knowledge except for what He wills. His Kursi extends over the heavens and the earth, and their preservation tires Him not. And He is the Most High, the Most Great.",
+        tamil: "அல்லாஹ்! அவனைத் தவிர வணக்கத்திற்குரியவன் வேறு யாருமில்லை. அவன் நிரந்தரமானவன், அனைத்தையும் நிலைநிறுத்துபவன். அவனை அசதியோ, உறக்கமோ பாதிப்பதில்லை. வானங்களிலும் பூமியிலும் உள்ள அனைத்தும் அவனுக்கே சொந்தம். அவனிடம் அவனது அனுமதியின்றி பரிந்துரை செய்யக்கூடியவர் யார்? அவர்களுக்கு முன்னால் இருப்பதையும், அவர்களுக்குப் பின்னால் இருப்பதையும் அவன் அறிகிறான். அவன் விரும்புவதைத் தவிர, அவனது அறிவிலிருந்து எதையும் அவர்கள் சூழ்ந்து அறிய முடியாது. அவனது குர்ஸி வானங்களையும் பூமியையும் சூழ்ந்துள்ளது. அவ்விரண்டையும் பாதுகாப்பது அவனுக்குச் சோர்வை ஏற்படுத்துவதில்லை. அவன் மிக உயர்ந்தவன், மகத்துவமிக்கவன்.",
+        reference: "Surah Al-Baqarah (2:255)",
+        category: "Protection",
+        featured: true  // ⭐ Long Dua - Featured Card
+    }
+];
 
         // Render Duas
         function renderDuas(filterCategory = 'All Duas') {
@@ -603,37 +724,37 @@
             document.getElementById('totalDuas').textContent = filteredDuas.length;
             
             container.innerHTML = filteredDuas.map(dua => `
-                <div class="dua-card" id="dua-card-${dua.id}" data-dua-id="${dua.id}">
-                    <span class="dua-number">Dua #${dua.id}</span>
-                    <h2 class="dua-title">${dua.title}</h2>
-                    <p class="dua-context">📖 ${dua.context}</p>
-                    
-                    <div class="dua-arabic">${dua.arabic}</div>
-                    
-                    <div class="translation-section">
-                        <div class="translation-box">
-                            <div class="translation-label">Urdu • اردو</div>
-                            <div class="translation-text urdu-text">${dua.urdu}</div>
-                        </div>
-                        <div class="translation-box">
-                            <div class="translation-label">Hindi • हिन्दी</div>
-                            <div class="translation-text">${dua.hindi}</div>
-                        </div>
-                        <div class="translation-box">
-                            <div class="translation-label">English</div>
-                            <div class="translation-text">${dua.english}</div>
-                        </div>
-                        <div class="translation-box">
-                            <div class="translation-label">Tamil • தமிழ்</div>
-                            <div class="translation-text tamil-text">${dua.tamil}</div>
-                        </div>
-                    </div>
-                    
-                    <p style="font-size: 0.8rem; color: #8a7e6b; margin-top: 8px; font-style: italic;">
-                        📚 ${dua.reference}
-                    </p>
-                    
-                            <div class="card-actions">
+    <div class="dua-card ${dua.featured ? 'featured' : ''}" id="dua-card-${dua.id}" data-dua-id="${dua.id}">
+        <span class="dua-number">${dua.featured ? '⭐ ' : ''}Dua #${dua.id}</span>
+        <h2 class="dua-title">${dua.title}</h2>
+        <p class="dua-context">📖 ${dua.context}</p>
+        
+        <div class="dua-arabic">${dua.arabic}</div>
+        
+        <div class="translation-section">
+            <div class="translation-box">
+                <div class="translation-label">Urdu • اردو</div>
+                <div class="translation-text urdu-text">${dua.urdu}</div>
+            </div>
+            <div class="translation-box">
+                <div class="translation-label">Hindi • हिन्दी</div>
+                <div class="translation-text">${dua.hindi}</div>
+            </div>
+            <div class="translation-box">
+                <div class="translation-label">English</div>
+                <div class="translation-text">${dua.english}</div>
+            </div>
+            <div class="translation-box">
+                <div class="translation-label">Tamil • தமிழ்</div>
+                <div class="translation-text tamil-text">${dua.tamil}</div>
+            </div>
+        </div>
+        
+        <p class="dua-reference" style="font-size: 0.8rem; color: #8a7e6b; margin-top: 8px; font-style: italic;">
+            📚 ${dua.reference}
+        </p>
+        
+        <div class="card-actions">
             <button class="btn btn-share" onclick="shareDuaAsImage(${dua.id})" title="Share as Image">
                 📸 Share as Image
             </button>
