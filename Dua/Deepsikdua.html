@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Daily Duas - Islamic Supplications | أدعية يومية</title>
+    <meta name="description" content="A comprehensive collection of authentic Islamic Duas with translations in Arabic, Urdu, Hindi, English, and Tamil. Daily supplications for every occasion.">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Noto+Nastaliq+Urdu:wght@400;700&family=Poppins:wght@300;400;500;600;700&family=Hind+Madurai:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- html2canvas for screenshot -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js">
+    </script>
+    
+    <style>
+        /* =============================================
+           CSS VARIABLES & RESET
+           ============================================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a5f4a;
+            --secondary: #c4a747;
+            --gold: #d4af37;
+            --bg-light: #f8f5f0;
+            --bg-card: #fffef9;
+            --text-dark: #2c2416;
+            --text-medium: #5a4e3c;
+            --text-light: #f8f5f0;
+            --border-soft: #e8dfd3;
+            --shadow-soft: 0 10px 40px rgba(42, 35, 20, 0.08);
+            --shadow-hover: 0 20px 50px rgba(42, 35, 20, 0.15);
+            --radius: 20px;
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f8f4e8 0%, #f3ebd8 30%, #faf7f0 60%, #f5eedb 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: var(--text-dark);
+            line-height: 1.7;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(196, 167, 71, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(26, 95, 74, 0.04) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(196, 167, 71, 0.02) 40px, rgba(196, 167, 71, 0.02) 41px),
+                repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(26, 95, 74, 0.02) 40px, rgba(26, 95, 74, 0.02) 41px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* =============================================
+           HEADER
+           ============================================= */
+        .header {
+            text-align: center;
+            padding: 40px 20px 30px;
+            position: relative;
+        }
+
+        .header-decoration {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .header-line {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .header-star {
+            color: var(--gold);
+            font-size: 1.2rem;
+            animation: pulse-star 2s infinite;
+        }
+
+        @keyframes pulse-star {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.3); }
+        }
+
+        .site-title {
+            font-family: 'Amiri Quran', serif;
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(26, 95, 74, 0.1);
+        }
+
+        .site-subtitle {
+            font-size: 1rem;
+            color: var(--text-medium);
+            font-weight: 400;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .bismillah {
+            font-family: 'Amiri Quran', serif;
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin: 20px 0;
+            opacity: 0.9;
+        }
+
+        /* =============================================
+           STATS BAR
+           ============================================= */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 15px 25px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border-radius: 50px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border-soft);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-medium);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* =============================================
+           CATEGORY PILLS
+           ============================================= */
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .category-pill {
+            padding: 10px 20px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1.5px solid var(--border-soft);
+            color: var(--text-medium);
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+
+        .category-pill:hover,
+        .category-pill.active {
+            background: var(--primary);
+            color: var(--text-light);
+            border-color: var(--primary);
+            box-shadow: 0 8px 25px rgba(26, 95, 74, 0.25);
+            transform: translateY(-2px);
+        }
+
+        /* =============================================
+           DUA CARDS
+           ============================================= */
+        .dua-card {
+            background: linear-gradient(135deg, #fffef9 0%, #fdfaf3 50%, #fffdf7 100%);
+            border-radius: var(--radius);
+            padding: 35px 30px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border-soft);
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .dua-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--gold), var(--secondary));
+            border-radius: var(--radius) var(--radius) 0 0;
+        }
+
+        .dua-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .dua-number {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 0.8rem;
+            color: var(--secondary);
+            font-weight: 600;
+            letter-spacing: 1px;
+            opacity: 0.7;
+        }
+
+        .dua-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 8px;
+            padding-right: 60px;
+        }
+
+        .dua-context {
+            font-size: 0.85rem;
+            color: var(--text-medium);
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        .dua-arabic {
+            font-family: 'Amiri Quran', serif;
+            font-size: 2rem;
+            color: #1a3c2a;
+            text-align: right;
+            direction: rtl;
+            line-height: 2.2;
+            padding: 20px 25px;
+            background: linear-gradient(135deg, #fdf8ee 0%, #faf5e6 100%);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(196, 167, 71, 0.2);
+            position: relative;
+        }
+
+        .dua-arabic::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 15px;
+            background: linear-gradient(135deg, rgba(196, 167, 71, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .translation-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .translation-box {
+            padding: 14px 16px;
+            border-radius: 12px;
+            background: rgba(248, 245, 240, 0.6);
+            border: 1px solid var(--border-soft);
+            transition: var(--transition);
+        }
+
+        .translation-box:hover {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: var(--secondary);
+        }
+
+        .translation-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .translation-text {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+
+        .urdu-text {
+            font-family: 'Noto Nastaliq Urdu', serif;
+            direction: rtl;
+            font-size: 1.1rem;
+        }
+
+        .tamil-text {
+            font-family: 'Hind Madurai', sans-serif;
+        }
+
+        .translation-full {
+            grid-column: 1 / -1;
+        }
+
+        /* =============================================
+           AUDIO BUTTONS
+           ============================================= */
+        .audio-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn-audio {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border-radius: 50px;
+            border: 1.5px solid var(--border-soft);
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--text-dark);
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .btn-audio:hover {
+            background: white;
+            border-color: var(--secondary);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .btn-audio.playing {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            animation: pulse-audio 1.5s infinite;
+        }
+
+        @keyframes pulse-audio {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(26, 95, 74, 0.4); }
+            50% { box-shadow: 0 0 0 12px rgba(26, 95, 74, 0); }
+        }
+
+        .btn-audio .audio-icon {
+            font-size: 1.1rem;
+        }
+
+        .btn-audio .audio-label {
+            font-size: 0.75rem;
+        }
+
+        /* =============================================
+           ACTION BUTTONS
+           ============================================= */
+        .card-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 5px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-share {
+            background: linear-gradient(135deg, var(--primary), #1a7a5a);
+            color: white;
+            box-shadow: 0 6px 20px rgba(26, 95, 74, 0.3);
+        }
+
+        .btn-share:hover {
+            box-shadow: 0 10px 30px rgba(26, 95, 74, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-copy {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--text-dark);
+            border: 1.5px solid var(--border-soft);
+        }
+
+        .btn-copy:hover {
+            background: white;
+            border-color: var(--secondary);
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-whatsapp:hover {
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* =============================================
+           WATERMARK
+           ============================================= */
+        .watermark {
+            text-align: right;
+            font-size: 0.7rem;
+            color: #c4b998;
+            opacity: 0.5;
+            font-style: italic;
+            margin-top: 12px;
+            letter-spacing: 0.5px;
+            user-select: none;
+            pointer-events: none;
+            font-weight: 400;
+        }
+
+        /* =============================================
+           FEATURED CARD
+           ============================================= */
+        .dua-card.featured {
+            max-width: 100%;
+            background: linear-gradient(135deg, #fffbeb 0%, #fef9e7 30%, #fffdf5 60%, #fdf8ed 100%);
+            border: 2px solid rgba(196, 167, 71, 0.35);
+            box-shadow: 0 15px 50px rgba(26, 95, 74, 0.12);
+            position: relative;
+            padding: 40px 35px 35px;
+        }
+
+        .dua-card.featured::before {
+            height: 5px;
+            background: linear-gradient(90deg, #d4af37, #1a5f4a, #c4a747, #d4af37);
+        }
+
+        .dua-card.featured::after {
+            content: '✨ FEATURED DUA ✨';
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #1a5f4a, #1a7a5a);
+            color: #f8f5f0;
+            padding: 6px 22px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            z-index: 2;
+            box-shadow: 0 5px 20px rgba(26, 95, 74, 0.3);
+            white-space: nowrap;
+        }
+
+        .dua-card.featured .dua-arabic {
+            font-size: 2.4rem;
+            padding: 30px 35px;
+            background: linear-gradient(135deg, #fdf8ee 0%, #faf3e0 100%);
+            border: 2px solid rgba(196, 167, 71, 0.25);
+            border-radius: 18px;
+            line-height: 2.6;
+        }
+
+        .dua-card.featured .translation-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .dua-card.featured .translation-box {
+            padding: 16px 18px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1.5px solid rgba(196, 167, 71, 0.15);
+            border-radius: 14px;
+        }
+
+        .dua-card.featured:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 25px 60px rgba(26, 95, 74, 0.18);
+        }
+
+        /* =============================================
+           FULLSCREEN LIGHTBOX
+           ============================================= */
+        .lightbox-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 9999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .lightbox-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lightbox-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            color: white;
+            z-index: 10;
+        }
+
+        .lightbox-counter {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .lightbox-close {
+            background: rgba(255,255,255,0.15);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .lightbox-close:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .lightbox-swipe-area {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .lightbox-card-wrapper {
+            width: 95%;
+            max-width: 800px;
+            max-height: 85vh;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+            border-radius: 20px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .lightbox-card-wrapper.swiping {
+            transition: none;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.15);
+            border: none;
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            font-size: 1.3rem;
+            cursor: pointer;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .lightbox-nav:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .lightbox-nav.prev {
+            left: 15px;
+        }
+
+        .lightbox-nav.next {
+            right: 15px;
+        }
+
+        .lightbox-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .lightbox-swipe-hint {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.5);
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .swipe-dots {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        .swipe-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .swipe-dot.active {
+            background: var(--gold);
+            width: 20px;
+            border-radius: 10px;
+        }
+
+        /* =============================================
+           TOAST
+           ============================================= */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #1a3c2a;
+            color: white;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            z-index: 10000;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* =============================================
+           FOOTER
+           ============================================= */
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: var(--text-medium);
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+
+        /* =============================================
+           RESPONSIVE
+           ============================================= */
+        @media (max-width: 768px) {
+            .translation-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .site-title {
+                font-size: 2rem;
+            }
+            
+            .dua-arabic {
+                font-size: 1.4rem;
+                padding: 18px 15px;
+                line-height: 2.2;
+            }
+            
+            .dua-card {
+                padding: 28px 15px 22px;
+                margin-left: 0;
+                margin-right: 0;
+                width: 100%;
+                border-radius: 16px;
+            }
+            
+            .card-actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                justify-content: center;
+                width: 100%;
+            }
+            
+            .stats-bar {
+                gap: 12px;
+                padding: 10px 12px;
+                border-radius: 40px;
+            }
+            
+            .dua-title {
+                font-size: 1.1rem;
+                padding-right: 45px;
+            }
+            
+            .dua-number {
+                top: 15px;
+                right: 15px;
+                font-size: 0.7rem;
+            }
+            
+            .container {
+                padding: 10px 5px;
+            }
+
+            .audio-buttons {
+                flex-direction: column;
+            }
+
+            .btn-audio {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .lightbox-nav {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .stat-number {
+                font-size: 1.2rem;
+            }
+            
+            .category-pill {
+                padding: 8px 14px;
+                font-size: 0.75rem;
+            }
+
+            .lightbox-card-wrapper {
+                width: 98%;
+                max-height: 80vh;
+            }
+        }
+
+        /* Featured Card Responsive */
+        @media (min-width: 992px) {
+            .container {
+                max-width: 1000px;
+            }
+            .dua-card.featured {
+                margin-left: -30px;
+                margin-right: -30px;
+                width: calc(100% + 60px);
+            }
+        }
+
+        @media (max-width: 767px) {
+            .dua-card.featured {
+                margin-left: 0;
+                margin-right: 0;
+                width: 100%;
+                padding: 35px 18px 25px;
+                border-radius: 18px;
+            }
+            .dua-card.featured .dua-arabic {
+                font-size: 1.5rem;
+                padding: 20px 15px;
+                line-height: 2.3;
+            }
+            .dua-card.featured .translation-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-decoration">
+                <span class="header-line"></span>
+                <span class="header-star">✦</span>
+                <span class="header-line"></span>
+            </div>
+            <h1 class="site-title">Daily Duas</h1>
+            <p class="site-subtitle">Authentic Islamic Supplications</p>
+            <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
+        </header>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-number" id="totalDuas">4</div>
+                <div class="stat-label">Duas</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">5</div>
+                <div class="stat-label">Languages</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">300+</div>
+                <div class="stat-label">Coming Soon</div>
+            </div>
+        </div>
+
+        <!-- Categories -->
+        <div class="categories">
+            <button class="category-pill active">All Duas</button>
+            <button class="category-pill">Morning</button>
+            <button class="category-pill">Evening</button>
+            <button class="category-pill">Protection</button>
+            <button class="category-pill">Forgiveness</button>
+            <button class="category-pill">Daily Life</button>
+        </div>
+
+        <!-- Duas Container -->
+        <div id="duasContainer"></div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>✦ May these supplications bring peace to your heart ✦</p>
+            <p style="margin-top: 5px; font-size: 0.75rem;">More Duas coming soon • 300+ Duas planned</p>
+        </footer>
+    </div>
+
+    <!-- Lightbox Overlay -->
+    <div class="lightbox-overlay" id="lightboxOverlay">
+        <div class="lightbox-container">
+            <div class="lightbox-header">
+                <span class="lightbox-counter" id="lightboxCounter">1 / 4</span>
+                <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+            </div>
+            <div class="lightbox-swipe-area" id="lightboxSwipeArea">
+                <button class="lightbox-nav prev" id="lightboxPrev" onclick="navigateLightbox(-1)">◀</button>
+                <div class="lightbox-card-wrapper" id="lightboxCardWrapper"></div>
+                <button class="lightbox-nav next" id="lightboxNext" onclick="navigateLightbox(1)">▶</button>
+                <div class="lightbox-swipe-hint" id="swipeHint">
+                    <span>←</span> Swipe <span>→</span>
+                </div>
+            </div>
+            <div class="swipe-dots" id="swipeDots"></div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Audio Element (shared) -->
+    <audio id="audioPlayer" preload="none"></audio>
+
+    <script>
+        // =============================================
+        // DUAS DATA WITH AUDIO PATHS
+        // =============================================
+        // Audio files should be placed in:
+        //   /audios/arabic/dua-{id}.mp3
+        //   /audios/translations/dua-{id}.mp3
+        // 
+        // On GitHub Pages, the BASE_URL will be:
+        //   https://yourusername.github.io/repository-name/
+        // 
+        // For local development, BASE_URL can be empty or "./"
+
+        const BASE_URL = ""; // Change to your GitHub Pages URL if needed
+        // Example: const BASE_URL = "https://yourusername.github.io/daily-duas/";
+
+        const duasData = [
+            {
+                id: 1,
+                title: "Dua for Seeking Knowledge",
+                context: "To be recited before studying or seeking knowledge",
+                arabic: "رَبِّ زِدْنِي عِلْمًا",
+                urdu: "اے میرے رب! میرے علم میں اضافہ فرما",
+                hindi: "ऐ मेरे रब! मेरे ज्ञान में वृद्धि कर दे",
+                english: "O my Lord! Increase me in knowledge",
+                tamil: "என் இறைவா! என் அறிவை அதிகப்படுத்துவாயாக",
+                reference: "Surah Ta-Ha (20:114)",
+                category: "Daily Life",
+                featured: false,
+                audio: {
+                    arabic: "audios/arabic/dua-1.mp3",   // ✅ Has Arabic audio
+                    translation: null                     // ❌ No translation audio
+                }
+            },
+            {
+                id: 2,
+                title: "Dua for Parents' Mercy",
+                context: "To be recited for the well-being and mercy upon parents",
+                arabic: "رَّبِّ ٱرْحَمْهُمَا كَمَا رَبَّيَانِى صَغِيرًۭا",
+                urdu: "اے میرے رب! ان دونوں پر رحم فرما جیسا کہ انہوں نے مجھے بچپن میں پالا",
+                hindi: "ऐ मेरे रब! उन दोनों पर दया कर जैसे उन्होंने मुझे बचपन में पाला",
+                english: "My Lord! Have mercy upon them as they brought me up when I was small",
+                tamil: "என் இறைவா! அவர்கள் இருவருக்கும் கருணை காட்டுவாயாக, அவர்கள் என்னைச் சிறு வயதில் வளர்த்ததைப் போல",
+                reference: "Surah Al-Isra (17:24)",
+                category: "Daily Life",
+                featured: false,
+                audio: {
+                    arabic: "audios/arabic/dua-2.mp3",   // ✅ Has Arabic audio
+                    translation: "audios/translations/dua-2.mp3"  // ✅ Has translation audio
+                }
+            },
+            {
+                id: 3,
+                title: "Dua for Protection from Evil",
+                context: "To be recited for seeking protection from all forms of evil",
+                arabic: "أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ",
+                urdu: "میں اللہ کے مکمل کلمات کے ذریعے اس کی تمام مخلوقات کے شر سے پناہ مانگتا ہوں",
+                hindi: "मैं अल्लाह के पूर्ण शब्दों के द्वारा उसकी सभी रचनाओं की बुराई से शरण माँगता हूँ",
+                english: "I seek refuge in the perfect words of Allah from the evil of what He has created",
+                tamil: "அல்லாஹ்வின் முழுமையான வார்த்தைகளைக் கொண்டு, அவன் படைத்தவற்றின் தீமையிலிருந்து பாதுகாப்புத் தேடுகிறேன்",
+                reference: "Sahih Muslim",
+                category: "Protection",
+                featured: false,
+                audio: {
+                    arabic: null,                          // ❌ No Arabic audio
+                    translation: "audios/translations/dua-3.mp3"  // ✅ Has translation audio
+                }
+            },
+            {
+                id: 4,
+                title: "Ayatul Kursi - The Greatest Verse",
+                context: "The Verse of the Throne - For protection, blessings & peace. Recite after every obligatory prayer.",
+                arabic: "ٱللَّهُ لَآ إِلَـٰهَ إِلَّا هُوَ ٱلْحَىُّ ٱلْقَيُّومُ ۚ لَا تَأْخُذُهُۥ سِنَةٌۭ وَلَا نَوْمٌۭ ۚ لَّهُۥ مَا فِى ٱلسَّمَـٰوَٰتِ وَمَا فِى ٱلْأَرْضِ ۗ مَن ذَا ٱلَّذِى يَشْفَعُ عِندَهُۥٓ إِلَّا بِإِذْنِهِۦ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ ۖ وَلَا يُحِيطُونَ بِشَىْءٍۢ مِّنْ عِلْمِهِۦٓ إِلَّا بِمَا شَآءَ ۚ وَسِعَ كُرْسِيُّهُ ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضَ ۖ وَلَا يَـُٔودُهُۥ حِفْظُهُمَا ۚ وَهُوَ ٱلْعَلِىُّ ٱلْعَظِيمُ",
+                urdu: "اللہ، اس کے سوا کوئی معبود نہیں، وہ زندہ ہے، سب کا نگہبان ہے۔ اسے نہ اونگھ آتی ہے نہ نیند۔ آسمانوں اور زمین میں جو کچھ ہے سب اسی کا ہے۔ کون ہے جو اس کی اجازت کے بغیر اس کے حضور سفارش کر سکے؟ وہ جانتا ہے جو ان کے سامنے ہے اور جو ان کے پیچھے ہے، اور وہ اس کے علم میں سے کسی چیز کا احاطہ نہیں کر سکتے مگر جتنا وہ چاہے۔ اس کی کرسی آسمانوں اور زمین کو گھیرے ہوئے ہے، اور اسے ان دونوں کی حفاظت تھکاتی نہیں، اور وہ بلند، عظمت والا ہے۔",
+                hindi: "अल्लाह, उसके सिवा कोई पूज्य नहीं, वह जीवित है, सबका संरक्षक है। उसे न ऊँघ आती है न नींद। आकाशों और धरती में जो कुछ है सब उसी का है। कौन है जो उसकी अनुमति के बिना उसके पास सिफ़ारिश कर सके? वह जानता है जो उनके सामने है और जो उनके पीछे है, और वे उसके ज्ञान में से किसी चीज़ का घेरा नहीं कर सकते, सिवाय उतने के जितना वह चाहे। उसकी कुर्सी आकाशों और धरती को घेरे हुए है, और उसे उन दोनों की रक्षा थकाती नहीं, और वह सर्वोच्च, महान है।",
+                english: "Allah! There is no deity except Him, the Ever-Living, the Sustainer of all existence. Neither drowsiness overtakes Him nor sleep. To Him belongs whatever is in the heavens and whatever is on the earth. Who is it that can intercede with Him except by His permission? He knows what is before them and what will be after them, and they encompass not a thing of His knowledge except for what He wills. His Kursi extends over the heavens and the earth, and their preservation tires Him not. And He is the Most High, the Most Great.",
+                tamil: "அல்லாஹ்! அவனைத் தவிர வணக்கத்திற்குரியவன் வேறு யாருமில்லை. அவன் நிரந்தரமானவன், அனைத்தையும் நிலைநிறுத்துபவன். அவனை அசதியோ, உறக்கமோ பாதிப்பதில்லை. வானங்களிலும் பூமியிலும் உள்ள அனைத்தும் அவனுக்கே சொந்தம். அவனிடம் அவனது அனுமதியின்றி பரிந்துரை செய்யக்கூடியவர் யார்? அவர்களுக்கு முன்னால் இருப்பதையும், அவர்களுக்குப் பின்னால் இருப்பதையும் அவன் அறிகிறான். அவன் விரும்புவதைத் தவிர, அவனது அறிவிலிருந்து எதையும் அவர்கள் சூழ்ந்து அறிய முடியாது. அவனது குர்ஸி வானங்களையும் பூமியையும் சூழ்ந்துள்ளது. அவ்விரண்டையும் பாதுகாப்பது அவனுக்குச் சோர்வை ஏற்படுத்துவதில்லை. அவன் மிக உயர்ந்தவன், மகத்துவமிக்கவன்.",
+                reference: "Surah Al-Baqarah (2:255)",
+                category: "Protection",
+                featured: true,
+                audio: {
+                    arabic: "audios/arabic/dua-4.mp3",   // ✅ Has Arabic audio
+                    translation: "audios/translations/dua-4.mp3"  // ✅ Has translation audio
+                }
+            }
+        ];
+
+        // =============================================
+        // CURRENT FILTER STATE
+        // =============================================
+        let currentFilter = 'All Duas';
+        let filteredDuaIds = [];
+
+        // =============================================
+        // RENDER DUAS
+        // =============================================
+        function renderDuas(filterCategory = 'All Duas') {
+            currentFilter = filterCategory;
+            const container = document.getElementById('duasContainer');
+            
+            let filteredDuas = filterCategory === 'All Duas' 
+                ? duasData 
+                : duasData.filter(dua => dua.category === filterCategory);
+            
+            // Store filtered IDs for lightbox navigation
+            filteredDuaIds = filteredDuas.map(d => d.id);
+            
+            document.getElementById('totalDuas').textContent = filteredDuas.length;
+            
+            container.innerHTML = filteredDuas.map(dua => `
+                <div class="dua-card ${dua.featured ? 'featured' : ''}" 
+                     id="dua-card-${dua.id}" 
+                     data-dua-id="${dua.id}"
+                     onclick="openLightbox(${dua.id})">
+                    
+                    <span class="dua-number">${dua.featured ? '⭐ ' : ''}Dua #${dua.id}</span>
+                    <h2 class="dua-title">${dua.title}</h2>
+                    <p class="dua-context">📖 ${dua.context}</p>
+                    
+                    <!-- Audio Buttons - Only show if audio exists -->
+                    ${renderAudioButtons(dua)}
+                    
+                    <div class="dua-arabic">${dua.arabic}</div>
+                    
+                    <div class="translation-section">
+                        <div class="translation-box">
+                            <div class="translation-label">Urdu • اردو</div>
+                            <div class="translation-text urdu-text">${dua.urdu}</div>
+                        </div>
+                        <div class="translation-box">
+                            <div class="translation-label">Hindi • हिन्दी</div>
+                            <div class="translation-text">${dua.hindi}</div>
+                        </div>
+                        <div class="translation-box">
+                            <div class="translation-label">English</div>
+                            <div class="translation-text">${dua.english}</div>
+                        </div>
+                        <div class="translation-box">
+                            <div class="translation-label">Tamil • தமிழ்</div>
+                            <div class="translation-text tamil-text">${dua.tamil}</div>
+                        </div>
+                    </div>
+                    
+                    <p style="font-size: 0.8rem; color: #8a7e6b; margin-top: 8px; font-style: italic;">
+                        📚 ${dua.reference}
+                    </p>
+                    
+                    <div class="card-actions" onclick="event.stopPropagation()">
+                        <button class="btn btn-share" onclick="shareDuaAsImage(${dua.id})" title="Share as Image">
+                            📸 Share as Image
+                        </button>
+                        <button class="btn btn-copy" onclick="copyDuaText(${dua.id})" title="Copy Dua Text">
+                            📋 Copy Text
+                        </button>
+                        <button class="btn btn-whatsapp" onclick="shareToWhatsApp(${dua.id})" title="Share on WhatsApp">
+                            💬 WhatsApp
+                        </button>
+                    </div>
+                    
+                    <div class="watermark">falahilmedeen.in</div>
+                </div>
+            `).join('');
+        }
+
+        // =============================================
+        // RENDER AUDIO BUTTONS (Smart Logic)
+        // =============================================
+        function renderAudioButtons(dua) {
+            let html = '';
+            const hasArabic = dua.audio && dua.audio.arabic;
+            const hasTranslation = dua.audio && dua.audio.translation;
+            
+            // If neither audio exists, return empty (no buttons)
+            if (!hasArabic && !hasTranslation) {
+                return '';
+            }
+            
+            html += '<div class="audio-buttons" onclick="event.stopPropagation()">';
+            
+            // Arabic Audio Button
+            if (hasArabic) {
+                html += `
+                    <button class="btn-audio btn-audio-arabic" 
+                            id="audio-btn-arabic-${dua.id}"
+                            onclick="toggleAudio('arabic', ${dua.id}, '${BASE_URL + dua.audio.arabic}')"
+                            title="Play Arabic Recitation">
+                        <span class="audio-icon">🎙️</span>
+                        <span class="audio-label">Arabic</span>
+                        <span class="audio-status">▶</span>
+                    </button>
+                `;
+            }
+            
+            // Translation Audio Button
+            if (hasTranslation) {
+                html += `
+                    <button class="btn-audio btn-audio-translation" 
+                            id="audio-btn-translation-${dua.id}"
+                            onclick="toggleAudio('translation', ${dua.id}, '${BASE_URL + dua.audio.translation}')"
+                            title="Play Translation Audio">
+                        <span class="audio-icon">🌐</span>
+                        <span class="audio-label">Translation</span>
+                        <span class="audio-status">▶</span>
+                    </button>
+                `;
+            }
+            
+            html += '</div>';
+            return html;
+        }
+
+        // =============================================
+        // AUDIO PLAYER LOGIC
+        // =============================================
+        let currentAudio = {
+            type: null,      // 'arabic' or 'translation'
+            duaId: null,
+            isPlaying: false
+        };
+
+        const audioPlayer = document.getElementById('audioPlayer');
+
+        function toggleAudio(type, duaId, audioUrl) {
+            const btnId = `audio-btn-${type}-${duaId}`;
+            const button = document.getElementById(btnId);
+            const statusSpan = button.querySelector('.audio-status');
+            
+            // If same audio is playing, pause it
+            if (currentAudio.type === type && 
+                currentAudio.duaId === duaId && 
+                currentAudio.isPlaying) {
+                pauseAudio();
+                return;
+            }
+            
+            // If different audio, stop current and play new
+            if (currentAudio.type !== null) {
+                resetAllAudioButtons();
+            }
+            
+            // Play new audio
+            audioPlayer.src = audioUrl;
+            audioPlayer.play().then(() => {
+                currentAudio.type = type;
+                currentAudio.duaId = duaId;
+                currentAudio.isPlaying = true;
+                button.classList.add('playing');
+                statusSpan.textContent = '⏸';
+            }).catch(err => {
+                console.error('Audio play failed:', err);
+                showToast('❌ Audio file not found. Please add: ' + audioUrl);
+            });
+        }
+
+        function pauseAudio() {
+            audioPlayer.pause();
+            resetAllAudioButtons();
+            currentAudio.type = null;
+            currentAudio.duaId = null;
+            currentAudio.isPlaying = false;
+        }
+
+        function resetAllAudioButtons() {
+            document.querySelectorAll('.btn-audio').forEach(btn => {
+                btn.classList.remove('playing');
+                const status = btn.querySelector('.audio-status');
+                if (status) status.textContent = '▶';
+            });
+        }
+
+        // Handle audio ended
+        audioPlayer.addEventListener('ended', () => {
+            resetAllAudioButtons();
+            currentAudio.type = null;
+            currentAudio.duaId = null;
+            currentAudio.isPlaying = false;
+        });
+
+        // Handle audio error
+        audioPlayer.addEventListener('error', () => {
+            showToast('❌ Error loading audio file');
+            resetAllAudioButtons();
+            currentAudio.type = null;
+            currentAudio.duaId = null;
+            currentAudio.isPlaying = false;
+        });
+
+        // =============================================
+        // FULLSCREEN LIGHTBOX (Mobile Gallery Style)
+        // =============================================
+        let lightboxCurrentIndex = 0;
+        let lightboxDuas = [];
+        let touchStartX = 0;
+        let touchEndX = 0;
+        let isSwiping = false;
+
+        function openLightbox(duaId) {
+            // Find index of clicked dua in filtered list
+            lightboxDuas = filteredDuaIds.map(id => duasData.find(d => d.id === id));
+            lightboxCurrentIndex = lightboxDuas.findIndex(d => d.id === duaId);
+            
+            if (lightboxCurrentIndex === -1) lightboxCurrentIndex = 0;
+            
+            document.getElementById('lightboxOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            renderLightboxCard();
+            updateLightboxNav();
+            renderSwipeDots();
+            
+            // Hide swipe hint after 3 seconds
+            setTimeout(() => {
+                const hint = document.getElementById('swipeHint');
+                if (hint) hint.style.opacity = '0';
+            }, 3000);
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightboxOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+            
+            // Pause any playing audio
+            if (currentAudio.isPlaying) {
+                pauseAudio();
+            }
+        }
+
+        function navigateLightbox(direction) {
+            const newIndex = lightboxCurrentIndex + direction;
+            if (newIndex >= 0 && newIndex < lightboxDuas.length) {
+                lightboxCurrentIndex = newIndex;
+                renderLightboxCard();
+                updateLightboxNav();
+                renderSwipeDots();
+            }
+        }
+
+        function renderLightboxCard() {
+            const wrapper = document.getElementById('lightboxCardWrapper');
+            const dua = lightboxDuas[lightboxCurrentIndex];
+            
+            wrapper.innerHTML = `
+                <div class="dua-card ${dua.featured ? 'featured' : ''}" 
+                     style="margin-bottom: 0; cursor: default; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
+                    <span class="dua-number">${dua.featured ? '⭐ ' : ''}Dua #${dua.id}</span>
+                    <h2 class="dua-title" style="padding-right: 60px;">${dua.title}</h2>
+                    <p class="dua-context">📖 ${dua.context}</p>
+                    
+                    ${renderAudioButtons(dua)}
+                    
+                    <div class="dua-arabic">${dua.arabic}</div>
+                    
+                    <div class="translation-section">
+                        <div class="translation-box">
+                            <div class="translation-label">Urdu • اردو</div>
+                            <div class="translation-text urdu-text">${dua.urdu}</div>
+                        </div>
+                        <div class="translation-box">
+                            <div class="translation-label">Hindi • हिन्दी</div>
+                            <div class="translation-text">${dua.hindi}</div>
+                        </div>
+                        <div class="translation-box">
+                            <div class="translation-label">English</div>
+                            <div class="translation-text">${dua.english}</div>
+                        </div>
+                        <div class="translation-box">
+                            <div class="translation-label">Tamil • தமிழ்</div>
+                            <div class="translation-text tamil-text">${dua.tamil}</div>
+                        </div>
+                    </div>
+                    
+                    <p style="font-size: 0.8rem; color: #8a7e6b; margin-top: 8px; font-style: italic;">
+                        📚 ${dua.reference}
+                    </p>
+                    
+                    <div class="card-actions" onclick="event.stopPropagation()">
+                        <button class="btn btn-share" onclick="shareDuaAsImage(${dua.id})" title="Share as Image">
+                            📸 Share as Image
+                        </button>
+                        <button class="btn btn-copy" onclick="copyDuaText(${dua.id})" title="Copy Dua Text">
+                            📋 Copy Text
+                        </button>
+                        <button class="btn btn-whatsapp" onclick="shareToWhatsApp(${dua.id})" title="Share on WhatsApp">
+                            💬 WhatsApp
+                        </button>
+                    </div>
+                    
+                    <div class="watermark">falahilmedeen.in</div>
+                </div>
+            `;
+            
+            // Update counter
+            document.getElementById('lightboxCounter').textContent = 
+                `${lightboxCurrentIndex + 1} / ${lightboxDuas.length}`;
+            
+            // Scroll to top
+            wrapper.scrollTop = 0;
+        }
+
+        function updateLightboxNav() {
+            const prevBtn = document.getElementById('lightboxPrev');
+            const nextBtn = document.getElementById('lightboxNext');
+            
+            prevBtn.disabled = lightboxCurrentIndex === 0;
+            nextBtn.disabled = lightboxCurrentIndex === lightboxDuas.length - 1;
+            
+            prevBtn.style.opacity = lightboxCurrentIndex === 0 ? '0.3' : '1';
+            nextBtn.style.opacity = lightboxCurrentIndex === lightboxDuas.length - 1 ? '0.3' : '1';
+        }
+
+        function renderSwipeDots() {
+            const dotsContainer = document.getElementById('swipeDots');
+            dotsContainer.innerHTML = lightboxDuas.map((_, index) => `
+                <div class="swipe-dot ${index === lightboxCurrentIndex ? 'active' : ''}"></div>
+            `).join('');
+        }
+
+        // Touch Swipe Support
+        const swipeArea = document.getElementById('lightboxSwipeArea');
+
+        swipeArea.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+            isSwiping = true;
+        }, {passive: true});
+
+        swipeArea.addEventListener('touchend', (e) => {
+            if (!isSwiping) return;
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+            isSwiping = false;
+        }, {passive: true});
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+            
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    // Swiped left - go to next
+                    navigateLightbox(1);
+                } else {
+                    // Swiped right - go to previous
+                    navigateLightbox(-1);
+                }
+            }
+        }
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', (e) => {
+            if (!document.getElementById('lightboxOverlay').classList.contains('active')) return;
+            
+            if (e.key === 'ArrowLeft') navigateLightbox(-1);
+            if (e.key === 'ArrowRight') navigateLightbox(1);
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        // Close lightbox on overlay click (outside card)
+        document.getElementById('lightboxOverlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLightbox();
+            }
+        });
+
+        // =============================================
+        // COPY DUA TEXT
+        // =============================================
+        function copyDuaText(duaId) {
+            const dua = duasData.find(d => d.id === duaId);
+            const text = `🕌 *${dua.title}*\n\n` +
+                        `🇸🇦 ${dua.arabic}\n\n` +
+                        `🇬🇧 ${dua.english}\n\n` +
+                        `🇵🇰 ${dua.urdu}\n\n` +
+                        `🇮🇳 ${dua.hindi}\n\n` +
+                        `🇱🇰 ${dua.tamil}\n\n` +
+                        `📚 ${dua.reference}\n\n` +
+                        `— Shared from falahilmedeen.in`;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('✅ Dua copied successfully! Assalamualaikum 🤲');
+            }).catch(() => {
+                showToast('❌ Failed to copy. Please try again.');
+            });
+        }
+
+        // =============================================
+        // SHARE TO WHATSAPP
+        // =============================================
+        function shareToWhatsApp(duaId) {
+            const dua = duasData.find(d => d.id === duaId);
+            const text = `🕌 *${dua.title}*\n\n` +
+                        `*Arabic:* ${dua.arabic}\n\n` +
+                        `*English:* ${dua.english}\n\n` +
+                        `*Urdu:* ${dua.urdu}\n\n` +
+                        `*Hindi:* ${dua.hindi}\n\n` +
+                        `*Tamil:* ${dua.tamil}\n\n` +
+                        `📚 ${dua.reference}\n\n` +
+                        `Assalamualaikum wa Rahmatullahi wa Barakatuh 🤲`;
+            
+            const encoded = encodeURIComponent(text);
+            window.open(`https://wa.me/?text=${encoded}`, '_blank');
+        }
+
+        // =============================================
+        // SHARE AS IMAGE (SCREENSHOT)
+        // =============================================
+        async function shareDuaAsImage(duaId) {
+            const card = document.getElementById(`dua-card-${duaId}`);
+            if (!card) {
+                showToast('❌ Card not found');
+                return;
+            }
+            
+            const btn = card.querySelector('.btn-share');
+            const originalText = btn.innerHTML;
+            
+            // Hide buttons before screenshot
+            const cardActions = card.querySelector('.card-actions');
+            const audioButtons = card.querySelector('.audio-buttons');
+            const originalCardDisplay = cardActions ? cardActions.style.display : '';
+            const originalAudioDisplay = audioButtons ? audioButtons.style.display : '';
+            
+            if (cardActions) cardActions.style.display = 'none';
+            if (audioButtons) audioButtons.style.display = 'none';
+            
+            btn.innerHTML = '⏳ Generating...';
+            btn.disabled = true;
+            
+            try {
+                card.classList.add('screenshot-mode');
+                await document.fonts.ready;
+                await new Promise(resolve => setTimeout(resolve, 300));
+                
+                const canvas = await html2canvas(card, {
+                    scale: 3,
+                    useCORS: true,
+                    backgroundColor: '#fffef9',
+                    logging: false,
+                    allowTaint: true,
+                    windowWidth: card.scrollWidth,
+                    windowHeight: card.scrollHeight
+                });
+                
+                card.classList.remove('screenshot-mode');
+                
+                // Restore buttons
+                if (cardActions) cardActions.style.display = originalCardDisplay;
+                if (audioButtons) audioButtons.style.display = originalAudioDisplay;
+                
+                canvas.toBlob(async (blob) => {
+                    if (navigator.share && navigator.canShare) {
+                        const file = new File([blob], `dua-${duaId}.png`, { type: 'image/png' });
+                        const shareData = {
+                            files: [file],
+                            title: 'Daily Dua',
+                            text: 'Assalamualaikum! Here is a beautiful Dua for you 🤲'
+                        };
+                        
+                        try {
+                            await navigator.share(shareData);
+                            showToast('✅ Dua image shared successfully! JazakAllah Khair 🤲');
+                        } catch (err) {
+                            downloadImage(canvas, duaId);
+                        }
+                    } else {
+                        downloadImage(canvas, duaId);
+                    }
+                    
+                    if (cardActions) cardActions.style.display = originalCardDisplay;
+                    if (audioButtons) audioButtons.style.display = originalAudioDisplay;
+                }, 'image/png', 1.0);
+                
+            } catch (error) {
+                console.error('Screenshot error:', error);
+                showToast('❌ Error generating image. Please try again.');
+                card.classList.remove('screenshot-mode');
+                if (cardActions) cardActions.style.display = originalCardDisplay;
+                if (audioButtons) audioButtons.style.display = originalAudioDisplay;
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        function downloadImage(canvas, duaId) {
+            const link = document.createElement('a');
+            link.download = `Daily-Dua-${duaId}.png`;
+            link.href = canvas.toDataURL('image/png', 1.0);
+            link.click();
+            showToast('📥 Dua image downloaded! You can now share it. 🤲');
+        }
+
+        // =============================================
+        // TOAST NOTIFICATION
+        // =============================================
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            clearTimeout(toast.timeout);
+            toast.timeout = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // =============================================
+        // CATEGORY FILTER
+        // =============================================
+        document.querySelectorAll('.category-pill').forEach(pill => {
+            pill.addEventListener('click', function() {
+                document.querySelectorAll('.category-pill').forEach(p => p.classList.remove('active'));
+                this.classList.add('active');
+                renderDuas(this.textContent);
+                
+                document.getElementById('duasContainer').scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start' 
+                });
+            });
+        });
+
+        // =============================================
+        // INITIAL RENDER
+        // =============================================
+        renderDuas();
+
+        console.log('🕌 Daily Duas Website Ready');
+        console.log('🎙️ Audio Support: Arabic + Translation (conditional)');
+        console.log('🖼️ Fullscreen Lightbox: Tap card to open, swipe to navigate');
+        console.log('📿 Assalamualaikum wa Rahmatullahi wa Barakatuh');
+    </script>
+</body>
+</html>
